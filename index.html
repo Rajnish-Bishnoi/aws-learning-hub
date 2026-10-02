@@ -1,776 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AWS Learning Hub</title>
-
-<style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #e5e7eb;
-}
-
-header {
-    background: #111827;
-    padding: 25px 40px;
-    border-bottom: 1px solid #334155;
-}
-
-header h1 {
-    margin: 0;
-    color: #ff9900;
-}
-
-header p {
-    margin: 8px 0 0;
-    color: #94a3b8;
-}
-
-.container {
-    display: flex;
-    min-height: calc(100vh - 100px);
-}
-
-.sidebar {
-    width: 280px;
-    background: #111827;
-    padding: 25px 15px;
-    border-right: 1px solid #334155;
-}
-
-.sidebar h3 {
-    color: #ff9900;
-    padding-left: 10px;
-}
-
-.topic {
-    display: block;
-    width: 100%;
-    padding: 13px 15px;
-    margin: 6px 0;
-    border: none;
-    border-radius: 8px;
-    background: transparent;
-    color: #e5e7eb;
-    text-align: left;
-    cursor: pointer;
-    font-size: 15px;
-}
-
-.topic:hover {
-    background: #1e293b;
-    color: #ff9900;
-}
-
-.topic.active {
-    background: #ff9900;
-    color: #111827;
-    font-weight: bold;
-}
-
-.content {
-    flex: 1;
-    padding: 40px;
-    max-width: 1000px;
-}
-
-.content h2 {
-    color: #ff9900;
-    font-size: 32px;
-}
-
-.content h3 {
-    color: #38bdf8;
-    margin-top: 30px;
-}
-
-.card {
-    background: #111827;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 25px;
-    margin: 20px 0;
-}
-
-code, pre {
-    background: #020617;
-    color: #86efac;
-    border-radius: 8px;
-}
-
-pre {
-    padding: 18px;
-    overflow-x: auto;
-}
-
-.note {
-    background: #172554;
-    border-left: 4px solid #38bdf8;
-    padding: 15px;
-    border-radius: 6px;
-}
-
-.warning {
-    background: #451a03;
-    border-left: 4px solid #f97316;
-    padding: 15px;
-    border-radius: 6px;
-}
-
-.back {
-    color: #38bdf8;
-    cursor: pointer;
-    margin-bottom: 20px;
-    display: inline-block;
-}
-
-.search {
-    width: 100%;
-    padding: 12px;
-    margin: 15px 0;
-    border-radius: 8px;
-    border: 1px solid #475569;
-    background: #020617;
-    color: white;
-}
-
-ul, ol {
-    line-height: 1.8;
-}
-
-@media(max-width: 700px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-    }
-
-    .content {
-        padding: 20px;
-    }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS Learning Hub</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
 <header>
-    <h1>☁ AWS Learning Hub</h1>
-    <p>My AWS Practical Notes • Commands • Concepts • Interview Preparation</p>
+  <h1>☁ AWS Learning Hub</h1>
+  <p>My AWS Practical Notes • Commands • Concepts • Interview Preparation</p>
 </header>
 
-<div class="container">
+<div class="layout">
+  <aside class="sidebar">
+    <h3>📚 AWS Topics</h3>
+    <input id="search" class="search" placeholder="Search topic..." oninput="filterTopics()">
+    <div id="topicList"></div>
+  </aside>
 
-<aside class="sidebar">
-
-<h3>📚 AWS Topics</h3>
-
-<input
-    type="text"
-    class="search"
-    placeholder="Search topic..."
-    onkeyup="searchTopics()"
-    id="searchBox"
->
-
-<button class="topic active" onclick="showTopic('home', this)">
-🏠 Home
-</button>
-
-<button class="topic" onclick="showTopic('ami', this)">
-1. AMI
-</button>
-
-<button class="topic" onclick="showTopic('ebs', this)">
-2. EBS Volume
-</button>
-
-<button class="topic" onclick="showTopic('snapshot', this)">
-3. Snapshot
-</button>
-
-<button class="topic" onclick="showTopic('crossregion', this)">
-4. Copy to Another Region
-</button>
-
-<button class="topic" onclick="showTopic('instancetype', this)">
-5. Instance Type
-</button>
-
-<button class="topic" onclick="showTopic('userdata', this)">
-6. User Data
-</button>
-
-<button class="topic" onclick="showTopic('vpc', this)">
-7. VPC
-</button>
-
-<button class="topic" onclick="showTopic('peering', this)">
-8. VPC Peering
-</button>
-
-<button class="topic" onclick="showTopic('tgw', this)">
-9. Transit Gateway
-</button>
-
-</aside>
-
-
-<main class="content" id="content">
-
-<!-- HOME -->
-
-<div id="home">
-
-<h2>🚀 Welcome to AWS Learning Hub</h2>
-
-<div class="card">
-
-<h3>What is this website?</h3>
-
-<p>
-This is my personal AWS learning and practical notes website.
-</p>
-
-<p>
-I will add AWS concepts, practical steps, Linux commands,
-real company scenarios and interview questions here.
-</p>
-
+  <main id="content" class="content"></main>
 </div>
 
-<div class="card">
-
-<h3>Current Learning</h3>
-
-<ul>
-<li>EC2</li>
-<li>AMI</li>
-<li>EBS Volume</li>
-<li>Snapshot</li>
-<li>Cross Region Migration</li>
-<li>Instance Type</li>
-<li>User Data</li>
-<li>VPC</li>
-<li>VPC Peering</li>
-<li>Transit Gateway</li>
-</ul>
-
-</div>
-
-<div class="note">
-💡 Click any topic from the left side to open complete notes.
-</div>
-
-</div>
-
-
-<!-- AMI -->
-
-<div id="ami" style="display:none">
-
-<span class="back" onclick="showTopic('home')">← Back to Home</span>
-
-<h2>1. AMI — Amazon Machine Image</h2>
-
-<div class="card">
-
-<h3>📚 What is AMI?</h3>
-
-<p>
-AMI is a template/image of an EC2 instance.
-It can contain the operating system, installed software,
-configuration and other required settings.
-</p>
-
-<p>
-We can use an AMI to launch another EC2 instance with the
-same configuration.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>🧪 My Practical</h3>
-
-<ol>
-<li>EC2 create kiya.</li>
-<li>Docker install kiya.</li>
-<li>EC2 ki AMI create ki.</li>
-<li>AMI se second EC2 launch kiya.</li>
-<li>Second EC2 mein Docker check kiya.</li>
-<li>Docker already installed tha because AMI mein configuration included thi.</li>
-</ol>
-
-</div>
-
-<div class="card">
-
-<h3>💡 Easy Example</h3>
-
-<p>
-Suppose EC2-1 mein Docker, configuration aur required software installed hai.
-</p>
-
-<p>
-Us EC2 ki AMI bana di.
-</p>
-
-<p>
-Ab AMI se EC2-2 launch karenge.
-</p>
-
-<p>
-EC2-2 mein same base configuration mil sakti hai.
-</p>
-
-</div>
-
-<div class="warning">
-⚠️ AMI aur Snapshot same cheez nahi hain.
-AMI EC2 launch karne ke liye image/template hoti hai,
-while Snapshot EBS volume ka point-in-time backup hota hai.
-</div>
-
-</div>
-
-
-<!-- EBS -->
-
-<div id="ebs" style="display:none">
-
-<span class="back" onclick="showTopic('home')">← Back to Home</span>
-
-<h2>2. EBS Volume</h2>
-
-<div class="card">
-
-<h3>📚 What is EBS?</h3>
-
-<p>
-EBS stands for Elastic Block Store.
-It provides block storage that can be attached to an EC2 instance.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>🧪 My Practical</h3>
-
-<ol>
-<li>Volume-1 create kiya.</li>
-<li>Volume-1 ko EC2-1 ke saath attach kiya.</li>
-<li>Volume check kiya using <code>lsblk</code>.</li>
-<li>File system check kiya.</li>
-<li>File system create kiya.</li>
-<li>Mount point create kiya.</li>
-<li>Volume mount kiya.</li>
-<li>Important file create ki.</li>
-<li>Permanent mount ke liye <code>/etc/fstab</code> configure kiya.</li>
-</ol>
-
-</div>
-
-<div class="card">
-
-<h3>💻 Important Commands</h3>
-
-<pre>
-lsblk
-
-file -s /dev/nvme1n1
-
-mkfs -t ext4 /dev/nvme1n1
-
-mkdir /mnt/data
-
-mount /dev/nvme1n1 /mnt/data
-
-umount /mnt/data
-</pre>
-
-</div>
-
-<div class="note">
-💡 Agar new volume mein data store karna hai,
-to mounted directory ke andar data store karo.
-Example: /mnt/data
-</div>
-
-</div>
-
-
-<!-- SNAPSHOT -->
-
-<div id="snapshot" style="display:none">
-
-<span class="back" onclick="showTopic('home')">← Back to Home</span>
-
-<h2>3. EBS Snapshot</h2>
-
-<div class="card">
-
-<h3>📚 What is Snapshot?</h3>
-
-<p>
-Snapshot is a point-in-time backup of an EBS volume.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>🧪 My Practical</h3>
-
-<ol>
-<li>Volume-1 create kiya.</li>
-<li>Volume-1 ko EC2-1 se attach kiya.</li>
-<li>Volume ko mount kiya.</li>
-<li>Important file create ki.</li>
-<li>Volume-1 ka snapshot create kiya.</li>
-<li>Snapshot se Volume-2 create kiya.</li>
-<li>Volume-2 ko EC2-2 se attach kiya.</li>
-<li>Volume-2 ko mount kiya.</li>
-<li>Important file check ki.</li>
-</ol>
-
-</div>
-
-<div class="note">
-💡 Snapshot → New EBS Volume → Attach → Mount → Data check
-</div>
-
-</div>
-
-
-<!-- CROSS REGION -->
-
-<div id="crossregion" style="display:none">
-
-<span class="back" onclick="showTopic('home')">← Back to Home</span>
-
-<h2>4. Copy AMI & Snapshot to Another Region</h2>
-
-<div class="card">
-
-<h3>AMI Cross Region</h3>
-
-<ol>
-<li>EC2 ki AMI create karo.</li>
-<li>AMI select karo.</li>
-<li>Copy AMI option choose karo.</li>
-<li>Destination region select karo.</li>
-<li>AMI copy karo.</li>
-<li>New region mein AMI available hogi.</li>
-<li>Us AMI se EC2 launch karo.</li>
-</ol>
-
-</div>
-
-<div class="card">
-
-<h3>Snapshot Cross Region</h3>
-
-<ol>
-<li>Snapshot create karo.</li>
-<li>Snapshot select karo.</li>
-<li>Copy Snapshot choose karo.</li>
-<li>Destination region select karo.</li>
-<li>Snapshot copy karo.</li>
-<li>New region mein snapshot se EBS volume create karo.</li>
-<li>Volume ko EC2 se attach karo.</li>
-<li>Mount karo.</li>
-</ol>
-
-</div>
-
-<div class="note">
-💡 Basic flow:
-
-AMI → Copy AMI → New Region → Launch EC2
-
-Snapshot → Copy Snapshot → New Region → Create Volume
-→ Attach → Mount
-</div>
-
-</div>
-
-
-<!-- INSTANCE TYPE -->
-
-<div id="instancetype" style="display:none">
-
-<span class="back" onclick="showTopic('home')">← Back to Home</span>
-
-<h2>5. EC2 Instance Type</h2>
-
-<div class="card">
-
-<h3>📚 What is Instance Type?</h3>
-
-<p>
-Instance type defines the compute resources available to an EC2 instance,
-such as CPU, memory, networking and storage capabilities.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Common Categories</h3>
-
-<ul>
-<li>General Purpose</li>
-<li>Compute Optimized</li>
-<li>Memory Optimized</li>
-<li>Storage Optimized</li>
-<li>Accelerated Computing</li>
-</ul>
-
-</div>
-
-</div>
-
-
-<!-- USER DATA -->
-
-<div id="userdata" style="display:none">
-
-<span class="back" onclick="showTopic('home')">← Back to Home</span>
-
-<h2>6. EC2 User Data</h2>
-
-<div class="card">
-
-<h3>📚 What is User Data?</h3>
-
-<p>
-User Data allows us to run commands or scripts during EC2 launch.
-It is commonly used for initial configuration and software installation.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>💻 Example</h3>
-
-<pre>
-#!/bin/bash
-
-yum install docker -y
-</pre>
-
-</div>
-
-<div class="note">
-💡 User Data can automate the initial setup of an EC2 instance.
-</div>
-
-</div>
-
-
-<!-- VPC -->
-
-<div id="vpc" style="display:none">
-
-<span class="back" onclick="showTopic('home')">← Back to Home</span>
-
-<h2>7. VPC</h2>
-
-<div class="card">
-
-<h3>📚 What is VPC?</h3>
-
-<p>
-VPC stands for Virtual Private Cloud.
-It is a logically isolated network in AWS where we launch resources.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Main Components</h3>
-
-<ul>
-<li>VPC</li>
-<li>Subnet</li>
-<li>Route Table</li>
-<li>Internet Gateway</li>
-<li>NAT Gateway</li>
-<li>Security Group</li>
-<li>Network ACL</li>
-</ul>
-
-</div>
-
-</div>
-
-
-<!-- PEERING -->
-
-<div id="peering" style="display:none">
-
-<span class="back" onclick="showTopic('home')">← Back to Home</span>
-
-<h2>8. VPC Peering</h2>
-
-<div class="card">
-
-<h3>📚 Concept</h3>
-
-<p>
-VPC Peering creates a network connection between two VPCs
-so resources in those VPCs can communicate using private IP addresses,
-subject to routing and security configuration.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Simple Company Example</h3>
-
-<p>
-Suppose Company has:
-
-</p>
-
-<ul>
-<li>VPC-1 → Application</li>
-<li>VPC-2 → Database</li>
-</ul>
-
-<p>
-VPC Peering can be used to establish private connectivity
-between the VPCs.
-</p>
-
-</div>
-
-</div>
-
-
-<!-- TRANSIT GATEWAY -->
-
-<div id="tgw" style="display:none">
-
-<span class="back" onclick="showTopic('home')">← Back to Home</span>
-
-<h2>9. Transit Gateway</h2>
-
-<div class="card">
-
-<h3>📚 Concept</h3>
-
-<p>
-AWS Transit Gateway acts as a central network hub that can connect
-multiple VPCs and other supported networks.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Simple Example</h3>
-
-<pre>
-VPC-1
-   \
-VPC-2 ---- Transit Gateway ---- VPC-3
-   /
-VPC-4
-</pre>
-
-<p>
-Instead of creating many individual VPC Peering connections,
-a central Transit Gateway can simplify the network architecture.
-</p>
-
-</div>
-
-</div>
-
-
-</main>
-
-</div>
-
-
+<script src="topics.js"></script>
 <script>
+let currentTopic = "home";
 
-function showTopic(topic, button) {
-
-    const sections = [
-        "home",
-        "ami",
-        "ebs",
-        "snapshot",
-        "crossregion",
-        "instancetype",
-        "userdata",
-        "vpc",
-        "peering",
-        "tgw"
-    ];
-
-    sections.forEach(function(section) {
-        const element = document.getElementById(section);
-
-        if (element) {
-            element.style.display =
-                section === topic ? "block" : "none";
-        }
-    });
-
-    document.querySelectorAll(".topic").forEach(function(btn) {
-        btn.classList.remove("active");
-    });
-
-    if (button) {
-        button.classList.add("active");
-    }
-
-    window.scrollTo(0, 0);
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
 }
 
-
-function searchTopics() {
-
-    const search =
-        document.getElementById("searchBox")
-        .value
-        .toLowerCase();
-
-    document.querySelectorAll(".topic").forEach(function(button) {
-
-        const text =
-            button.innerText.toLowerCase();
-
-        if (text.includes(search)) {
-            button.style.display = "block";
-        } else {
-            button.style.display = "none";
-        }
-
-    });
-
+function renderList(items) {
+  if (!items || !items.length) return "<p class='muted'>Not added yet.</p>";
+  return "<ul>" + items.map(x => `<li>${esc(x)}</li>`).join("") + "</ul>";
 }
 
+function renderCommands(commands) {
+  if (!commands || !commands.length) return "<p class='muted'>Commands not added yet.</p>";
+  return commands.map(c => `<pre><code>${esc(c)}</code></pre>`).join("");
+}
+
+function renderTopic(topic) {
+  return `
+    <a class="back" onclick="showTopic('home')">← Back to Home</a>
+    <h2>${esc(topic.number)}. ${esc(topic.title)}</h2>
+
+    <section class="card">
+      <h3>📌 Concept</h3>
+      <p>${esc(topic.concept)}</p>
+    </section>
+
+    <section class="card">
+      <h3>🧠 Simple Explanation</h3>
+      <p>${esc(topic.simple)}</p>
+    </section>
+
+    <section class="card">
+      <h3>🏢 Real Company Example</h3>
+      <p>${esc(topic.company)}</p>
+    </section>
+
+    <section class="card">
+      <h3>🛠️ Practical</h3>
+      ${topic.practical.map(p => `<p>${esc(p)}</p>`).join("")}
+    </section>
+
+    <section class="card">
+      <h3>💻 Commands</h3>
+      ${renderCommands(topic.commands)}
+    </section>
+
+    <section class="card">
+      <h3>📋 Steps</h3>
+      ${renderList(topic.steps)}
+    </section>
+
+    <section class="card warning">
+      <h3>⚠️ Common Mistakes</h3>
+      ${renderList(topic.mistakes)}
+    </section>
+
+    <section class="card">
+      <h3>🎯 Interview Questions</h3>
+      ${renderList(topic.interview)}
+    </section>
+
+    <section class="card notes">
+      <h3>📝 My Notes</h3>
+      ${topic.notes.map(n => `<p>${esc(n)}</p>`).join("")}
+    </section>
+  `;
+}
+
+function showTopic(id, button) {
+  currentTopic = id;
+  document.querySelectorAll(".topic-btn").forEach(b => b.classList.remove("active"));
+  if (button) button.classList.add("active");
+
+  if (id === "home") {
+    document.getElementById("content").innerHTML = `
+      <h2>🚀 Welcome to AWS Learning Hub</h2>
+      <section class="card">
+        <h3>How to use this website</h3>
+        <p>Every AWS topic follows the same learning format: Concept → Simple Explanation → Company Example → Practical → Commands → Steps → Common Mistakes → Interview Questions → My Notes.</p>
+      </section>
+      <section class="card">
+        <h3>✏️ Easy Editing</h3>
+        <p>All topic content is stored in <b>topics.js</b>. To add or edit a topic, you normally only edit that one file. You do not need to change the website design.</p>
+      </section>
+    `;
+  } else {
+    const topic = topics.find(t => t.id === id);
+    document.getElementById("content").innerHTML = renderTopic(topic);
+  }
+  window.scrollTo(0, 0);
+}
+
+function buildMenu() {
+  const list = document.getElementById("topicList");
+  list.innerHTML = `
+    <button class="topic-btn active" onclick="showTopic('home',this)">🏠 Home</button>
+    ${topics.map(t => `<button class="topic-btn" data-title="${esc(t.number + ' ' + t.title)}" onclick="showTopic('${t.id}',this)">${esc(t.number)}. ${esc(t.title)}</button>`).join("")}
+  `;
+}
+
+function filterTopics() {
+  const q = document.getElementById("search").value.toLowerCase();
+  document.querySelectorAll(".topic-btn").forEach(btn => {
+    btn.style.display = btn.innerText.toLowerCase().includes(q) ? "block" : "none";
+  });
+}
+
+buildMenu();
+showTopic("home");
 </script>
-
 </body>
 </html>
