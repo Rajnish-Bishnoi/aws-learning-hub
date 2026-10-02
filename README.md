@@ -1,18 +1,23 @@
 # AWS Learning Hub
-Complete portal with 80 separate topic pages.
 
-## Structure
-- `index.html` = dashboard
-- `style.css` = common design
-- `topics/<category>/<topic>.html` = individual editable topic pages
+## New navigation
+The left sidebar now works like an accordion:
 
-## GitHub Pages
-Upload the complete folder contents to the repository root. Keep Pages on `main` branch and `/` root.
+Category
+  → click
+  → subtopics expand underneath
+  → click a subtopic
+  → dedicated topic page opens
+
+## File structure
+- index.html = dashboard
+- style.css = common design
+- topics/<category>/<topic>.html = separate editable topic pages
 
 ## Editing
-To edit AMI, for example, open:
-`topics/2-compute/ami.html`
-Then edit the relevant section and commit the change.
+To edit one topic, open only its HTML file. You don't need to change the other topic pages.
 
-## Safety
-Never run destructive commands on a disk/resource unless you have confirmed the exact target. `mkfs` can erase an existing filesystem.
+## GitHub Pages
+Keep:
+- Branch: main
+- Folder: / (root)
