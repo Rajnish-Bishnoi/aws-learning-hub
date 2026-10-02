@@ -1,0 +1,409 @@
+{
+  "total_topics": 80,
+  "categories": [
+    {
+      "folder": "1-cloud-basics",
+      "title": "1️⃣ Cloud Basics",
+      "topics": [
+        {
+          "slug": "introduction-cloud-computing",
+          "title": "Introduction to Cloud Computing"
+        },
+        {
+          "slug": "service-models-iaas-paas-saas",
+          "title": "Cloud Service Models (IaaS, PaaS, SaaS)"
+        },
+        {
+          "slug": "deployment-models",
+          "title": "Cloud Deployment Models (Public, Private, Hybrid)"
+        },
+        {
+          "slug": "global-infrastructure",
+          "title": "Global Infrastructure (Regions, AZs, Edge Locations)"
+        }
+      ]
+    },
+    {
+      "folder": "2-compute",
+      "title": "2️⃣ Compute (AWS EC2 & Azure VM)",
+      "topics": [
+        {
+          "slug": "ec2",
+          "title": "Elastic Cloud Computing (EC2)"
+        },
+        {
+          "slug": "launch-connect-manage-ec2",
+          "title": "Launch, Connect & Manage EC2 Instances"
+        },
+        {
+          "slug": "security-groups-key-pairs",
+          "title": "Security Groups & Key Pairs"
+        },
+        {
+          "slug": "instance-types-userdata-templates",
+          "title": "Instance Types, User Data, Templates"
+        },
+        {
+          "slug": "ami",
+          "title": "Amazon Machine Image (AMI)"
+        },
+        {
+          "slug": "azure-vm",
+          "title": "Azure Virtual Machines"
+        },
+        {
+          "slug": "azure-vm-image-vmss",
+          "title": "Azure VM Image & Scale Set (VMSS)"
+        }
+      ]
+    },
+    {
+      "folder": "3-linux",
+      "title": "3️⃣ Linux Fundamentals",
+      "topics": [
+        {
+          "slug": "linux-commands-1",
+          "title": "Linux Commands (Part 1)"
+        },
+        {
+          "slug": "linux-commands-2",
+          "title": "Linux Commands (Part 2)"
+        },
+        {
+          "slug": "linux-commands-3",
+          "title": "Linux Commands (Part 3)"
+        },
+        {
+          "slug": "permissions-processes",
+          "title": "File Permissions & Process Management"
+        }
+      ]
+    },
+    {
+      "folder": "4-web-servers",
+      "title": "4️⃣ Web Servers",
+      "topics": [
+        {
+          "slug": "apache",
+          "title": "Install & Configure Apache"
+        },
+        {
+          "slug": "nginx",
+          "title": "Install & Configure Nginx"
+        },
+        {
+          "slug": "static-website-apache-nginx",
+          "title": "Host Static Website on Apache/Nginx"
+        }
+      ]
+    },
+    {
+      "folder": "5-storage",
+      "title": "5️⃣ Storage",
+      "topics": [
+        {
+          "slug": "ebs-volume-types",
+          "title": "EBS (Elastic Block Store) – Volume Types"
+        },
+        {
+          "slug": "mounting-filesystem",
+          "title": "Mounting & File System Setup"
+        },
+        {
+          "slug": "attach-ebs-share-data",
+          "title": "Attach EBS to EC2 & Share Data"
+        },
+        {
+          "slug": "snapshot-restore",
+          "title": "Snapshot & Restore Process"
+        },
+        {
+          "slug": "s3-bucket-objects",
+          "title": "S3 Bucket Creation & Object Management"
+        },
+        {
+          "slug": "s3-versioning-policies-static",
+          "title": "Versioning, Policies, Static Website Hosting"
+        },
+        {
+          "slug": "s3-lifecycle-replication",
+          "title": "S3 Lifecycle, Replication"
+        },
+        {
+          "slug": "s3-presigned-multipart",
+          "title": "S3 Presigned URL, Multipart Upload"
+        },
+        {
+          "slug": "s3-events-object-lock",
+          "title": "S3 Event Notification & Object Lock"
+        }
+      ]
+    },
+    {
+      "folder": "6-networking",
+      "title": "6️⃣ Networking",
+      "topics": [
+        {
+          "slug": "vpc-cidr",
+          "title": "VPC (Virtual Private Cloud) & CIDR Range"
+        },
+        {
+          "slug": "public-private-subnets",
+          "title": "Public & Private Subnets"
+        },
+        {
+          "slug": "internet-nat-gateway",
+          "title": "Internet Gateway, NAT Gateway"
+        },
+        {
+          "slug": "route-tables",
+          "title": "Route Tables & Associations"
+        },
+        {
+          "slug": "vpc-peering",
+          "title": "VPC Peering"
+        },
+        {
+          "slug": "transit-gateway",
+          "title": "Transit Gateway"
+        },
+        {
+          "slug": "nacls",
+          "title": "Network ACLs (NACLs)"
+        },
+        {
+          "slug": "security-groups-rules",
+          "title": "Security Groups (Inbound & Outbound Rules)"
+        },
+        {
+          "slug": "azure-vnet",
+          "title": "Azure Virtual Network (VNet)"
+        },
+        {
+          "slug": "azure-subnets-peering",
+          "title": "Azure Subnets & Peering"
+        }
+      ]
+    },
+    {
+      "folder": "7-load-scaling",
+      "title": "7️⃣ Load Balancing & Scaling",
+      "topics": [
+        {
+          "slug": "clb",
+          "title": "Classic Load Balancer (CLB)"
+        },
+        {
+          "slug": "alb",
+          "title": "Application Load Balancer (ALB)"
+        },
+        {
+          "slug": "advanced-alb-target-groups",
+          "title": "Advanced ALB with Multiple Target Groups"
+        },
+        {
+          "slug": "autoscaling-basics",
+          "title": "Auto Scaling Basics"
+        },
+        {
+          "slug": "scaling-policies",
+          "title": "Step & Simple Scaling Policies"
+        },
+        {
+          "slug": "azure-load-balancer-app-gateway",
+          "title": "Azure Load Balancer & Application Gateway"
+        }
+      ]
+    },
+    {
+      "folder": "8-iam-cli-terraform",
+      "title": "8️⃣ IAM, CLI & Terraform",
+      "topics": [
+        {
+          "slug": "iam-introduction",
+          "title": "IAM Introduction"
+        },
+        {
+          "slug": "iam-users-groups-policies",
+          "title": "IAM Users, Groups, Policies"
+        },
+        {
+          "slug": "iam-roles-instance-profiles",
+          "title": "IAM Roles & Instance Profiles"
+        },
+        {
+          "slug": "aws-cli",
+          "title": "AWS CLI Basics"
+        },
+        {
+          "slug": "azure-cli",
+          "title": "Azure CLI Basics"
+        },
+        {
+          "slug": "terraform-introduction",
+          "title": "Terraform Introduction"
+        },
+        {
+          "slug": "iac-practice",
+          "title": "Infrastructure as Code (IaC) Practice"
+        }
+      ]
+    },
+    {
+      "folder": "9-monitoring",
+      "title": "9️⃣ Monitoring & Logging",
+      "topics": [
+        {
+          "slug": "cloudwatch-metrics-dashboards",
+          "title": "CloudWatch Metrics & Dashboards"
+        },
+        {
+          "slug": "cloudwatch-alarms",
+          "title": "CloudWatch Alarms"
+        },
+        {
+          "slug": "eventbridge-cloudwatch-logs",
+          "title": "EventBridge & CloudWatch Logs"
+        },
+        {
+          "slug": "cloudtrail",
+          "title": "CloudTrail Basics"
+        }
+      ]
+    },
+    {
+      "folder": "10-cdn-dns",
+      "title": "🔟 CDN & DNS",
+      "topics": [
+        {
+          "slug": "cloudfront",
+          "title": "CloudFront Overview"
+        },
+        {
+          "slug": "cloudfront-s3",
+          "title": "CDN Configuration with S3"
+        },
+        {
+          "slug": "dns-concepts",
+          "title": "DNS Concepts & Domain Name System"
+        },
+        {
+          "slug": "route53-hosted-zones",
+          "title": "Route 53 (Part 1 – Hosted Zones)"
+        },
+        {
+          "slug": "route53-records-failover",
+          "title": "Route 53 (Part 2 – Record Sets & Failover)"
+        },
+        {
+          "slug": "azure-dns",
+          "title": "Azure DNS Zones"
+        }
+      ]
+    },
+    {
+      "folder": "11-serverless",
+      "title": "1️⃣1️⃣ Serverless & Automation",
+      "topics": [
+        {
+          "slug": "lambda-basics",
+          "title": "AWS Lambda Basics"
+        },
+        {
+          "slug": "lambda-s3-eventbridge",
+          "title": "Lambda Triggering via S3/EventBridge"
+        },
+        {
+          "slug": "lambda-dynamodb",
+          "title": "Lambda with DynamoDB"
+        }
+      ]
+    },
+    {
+      "folder": "12-databases",
+      "title": "1️⃣2️⃣ Databases",
+      "topics": [
+        {
+          "slug": "rds-basics",
+          "title": "AWS RDS Basics"
+        },
+        {
+          "slug": "rds-multi-az-read-replica",
+          "title": "Multi-AZ & Read Replica"
+        },
+        {
+          "slug": "aurora",
+          "title": "Aurora Database"
+        },
+        {
+          "slug": "dynamodb-basics",
+          "title": "DynamoDB (Part 1 – Basics)"
+        },
+        {
+          "slug": "dynamodb-indexes-streams",
+          "title": "DynamoDB (Part 2 – Indexes & Streams)"
+        },
+        {
+          "slug": "dms",
+          "title": "Database Migration Service (DMS)"
+        }
+      ]
+    },
+    {
+      "folder": "13-devops",
+      "title": "1️⃣3️⃣ DevOps Integration (Extra but Important)",
+      "topics": [
+        {
+          "slug": "cicd",
+          "title": "CI/CD Basics"
+        },
+        {
+          "slug": "git-github",
+          "title": "Git & GitHub Integration"
+        },
+        {
+          "slug": "codepipeline-build-deploy",
+          "title": "AWS CodePipeline / CodeBuild / CodeDeploy"
+        },
+        {
+          "slug": "jenkins-ec2",
+          "title": "Jenkins Setup on EC2"
+        },
+        {
+          "slug": "docker-basics",
+          "title": "Docker Basics (for DevOps Cloud Projects)"
+        },
+        {
+          "slug": "kubernetes-intro",
+          "title": "Kubernetes (Intro)"
+        }
+      ]
+    },
+    {
+      "folder": "14-cost-security",
+      "title": "1️⃣4️⃣ Cost & Security Management",
+      "topics": [
+        {
+          "slug": "billing-dashboard",
+          "title": "AWS Billing Dashboard"
+        },
+        {
+          "slug": "cost-explorer-budgets",
+          "title": "Cost Explorer & Budgets"
+        },
+        {
+          "slug": "trusted-advisor",
+          "title": "Trusted Advisor"
+        },
+        {
+          "slug": "waf-shield",
+          "title": "AWS WAF & Shield (Optional)"
+        },
+        {
+          "slug": "backup-disaster-recovery",
+          "title": "Backup & Disaster Recovery Concepts"
+        }
+      ]
+    }
+  ]
+}

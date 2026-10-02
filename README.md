@@ -1,23 +1,18 @@
-# AWS Learning Hub
+# AWS Learning Hub — Study-first Edition
 
-## New navigation
-The left sidebar now works like an accordion:
+- `index.html` = dashboard with left accordion navigation
+- `style.css` = common study-focused UI
+- `topics/<category>/<topic>.html` = separate editable page for each topic
 
-Category
-  → click
-  → subtopics expand underneath
-  → click a subtopic
-  → dedicated topic page opens
+Each topic includes:
+Concept, Simple Explanation, Company Scenario, Diagram/Mental Model, Practical, Flow Shortcut, Commands, Lab Steps, Common Mistakes, Security, Related Services, Interview Questions, Interview Scenarios, Remember Trick, My Practical Notes and Cheat Sheet.
 
-## File structure
-- index.html = dashboard
-- style.css = common design
-- topics/<category>/<topic>.html = separate editable topic pages
+### Editing
+Edit only the topic HTML you need. Shared UI is in `style.css`.
 
-## Editing
-To edit one topic, open only its HTML file. You don't need to change the other topic pages.
+### GitHub Pages
+Branch: `main`
+Folder: `/ (root)`
 
-## GitHub Pages
-Keep:
-- Branch: main
-- Folder: / (root)
+### Safety
+Verify the exact target before destructive commands. `mkfs` can recreate a filesystem and may destroy existing data.
