@@ -291,9 +291,161 @@ nav .cat.open .subwrap{display:block}
   </div>
   </div>
 
-  <section id="panel-practical" class="hidden-panel">
-    <section class="c green"><h3>🔧 Practical — Full Step List</h3><ol class="steps"><li>Open AWS Console → RDS → Databases → Create database Select Standard create Engine: MySQL Template: Free tier / Dev/Test DB identifier: lab-rds Master username: admin Set a strong master password Instance class: db.t3.micro / eligible free-tier option Storage: 20 GB Disable storage autoscaling for the lab if appropriate Choose your VPC Create/select a DB subnet group For a simple lab, select Public access: Yes Create a security group for RDS Database port: 3306 Click Create database Wait until status becomes Available Copy the RDS Endpoint</li><li>Configure network/security.</li><li>Connect with an approved client.</li><li>Perform one test operation.</li><li>Verify and clean up.</li></ol></section>
+<section id="panel-practical" class="hidden-panel">
+  <section class="c green">
+
+    <h3>🔧 Practical — Full Step List</h3>
+
+    <ol class="steps">
+
+      <!-- STEP 1 -->
+      <li>
+        <strong>Create/use a small lab database</strong>
+
+        <ol>
+          <li>Open <strong>AWS Console → RDS → Databases → Create database</strong></li>
+          <li>Select <strong>Standard create</strong></li>
+          <li>Engine: <strong>MySQL</strong></li>
+          <li>Template: <strong>Free tier / Dev/Test</strong></li>
+          <li>DB identifier: <code>lab-rds</code></li>
+          <li>Master username: <code>admin</code></li>
+          <li>Set a strong <strong>master password</strong></li>
+          <li>Instance class: <code>db.t3.micro</code> / eligible free-tier option</li>
+          <li>Storage: <strong>20 GB</strong></li>
+          <li>Disable <strong>storage autoscaling</strong> for the lab if appropriate</li>
+          <li>Choose your <strong>VPC</strong></li>
+          <li>Create/select a <strong>DB subnet group</strong></li>
+          <li>For a simple lab, select <strong>Public access: Yes</strong></li>
+          <li>Create/select a <strong>Security Group</strong> for RDS</li>
+          <li>Database port: <strong>3306</strong></li>
+          <li>Click <strong>Create database</strong></li>
+          <li>Wait until database status becomes <strong>Available</strong></li>
+          <li>Copy the <strong>RDS Endpoint</strong></li>
+        </ol>
+      </li>
+
+
+      <!-- STEP 2 -->
+      <li>
+        <strong>Configure network/security</strong>
+
+        <ol>
+          <li>Open <strong>EC2 → Security Groups</strong></li>
+          <li>Select the <strong>RDS Security Group</strong></li>
+          <li>Click <strong>Edit inbound rules</strong></li>
+          <li>Add <strong>MySQL/Aurora</strong> rule</li>
+          <li>Protocol: <strong>TCP</strong></li>
+          <li>Port: <strong>3306</strong></li>
+          <li>Source: <strong>My IP</strong></li>
+          <li>Click <strong>Save rules</strong></li>
+          <li>Verify RDS is using the correct <strong>Security Group</strong></li>
+          <li>Verify RDS is inside the correct <strong>VPC</strong></li>
+          <li>Verify the <strong>DB subnet group</strong></li>
+        </ol>
+      </li>
+
+
+      <!-- STEP 3 -->
+      <li>
+        <strong>Connect with an approved client</strong>
+
+        <ol>
+          <li>Open <strong>MySQL Workbench</strong> or <strong>DBeaver</strong></li>
+          <li>Select <strong>New Database Connection</strong></li>
+          <li>Database type: <strong>MySQL</strong></li>
+          <li>Host: <code>&lt;RDS-ENDPOINT&gt;</code></li>
+          <li>Port: <strong>3306</strong></li>
+          <li>Username: <code>admin</code></li>
+          <li>Password: <strong>RDS master password</strong></li>
+          <li>Click <strong>Test Connection</strong></li>
+          <li>Click <strong>Connect</strong></li>
+          <li>Run:</li>
+        </ol>
+
+        <pre><code>SHOW DATABASES;</code></pre>
+
+      </li>
+
+
+      <!-- STEP 4 -->
+      <li>
+        <strong>Perform one test operation</strong>
+
+        <ol>
+          <li>Create a test database:</li>
+        </ol>
+
+        <pre><code>CREATE DATABASE labdb;</code></pre>
+
+        <ol>
+          <li>Select the database:</li>
+        </ol>
+
+        <pre><code>USE labdb;</code></pre>
+
+        <ol>
+          <li>Create a table:</li>
+        </ol>
+
+        <pre><code>CREATE TABLE employees (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    department VARCHAR(100)
+);</code></pre>
+
+        <ol>
+          <li>Insert test data:</li>
+        </ol>
+
+        <pre><code>INSERT INTO employees (name, department)
+VALUES ('Raj', 'IT');</code></pre>
+
+        <ol>
+          <li>Read the data:</li>
+        </ol>
+
+        <pre><code>SELECT * FROM employees;</code></pre>
+
+      </li>
+
+
+      <!-- STEP 5 -->
+      <li>
+        <strong>Verify and clean up</strong>
+
+        <ol>
+          <li>Verify database:</li>
+        </ol>
+
+        <pre><code>SHOW DATABASES;</code></pre>
+
+        <ol>
+          <li>Verify table:</li>
+        </ol>
+
+        <pre><code>SHOW TABLES;</code></pre>
+
+        <ol>
+          <li>Verify records:</li>
+        </ol>
+
+        <pre><code>SELECT * FROM employees;</code></pre>
+
+        <ol>
+          <li>Remove the temporary <strong>3306 inbound rule</strong></li>
+          <li>Go to <strong>RDS → Databases → lab-rds</strong></li>
+          <li>Click <strong>Actions → Delete</strong></li>
+          <li>Disable final snapshot if this is only a temporary lab</li>
+          <li>Confirm deletion</li>
+          <li>Verify the RDS instance has been deleted</li>
+        </ol>
+
+      </li>
+
+    </ol>
+
   </section>
+</section>
 
   <section id="panel-commands" class="hidden-panel">
     <section class="c purple"><h3>⌨ Commands</h3><pre># Use the engine/service-specific client or AWS CLI command</pre></section>
