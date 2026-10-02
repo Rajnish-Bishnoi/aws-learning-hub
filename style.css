@@ -46,9 +46,184 @@ h1{font-size:30px;margin:0;display:flex;align-items:center;gap:14px}
 .ul{list-style:none;margin:0;padding:0}
 .ul li{margin:7px 0;display:flex;gap:10px;align-items:center}
 .ck{width:20px;height:20px;border-radius:50%;background:#f59a23;color:#fff;font-size:12px;display:grid;place-items:center;flex:none}
-.steps{counter-reset:s;list-style:none;margin:10px 0 0;padding:0}
-.steps li{counter-increment:s;display:flex;gap:12px;align-items:center;margin:9px 0}
-.steps li:before{content:counter(s);width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;display:grid;place-items:center;flex:none}
+/* ================================
+   PRACTICAL STEPS
+================================ */
+
+.steps{
+    counter-reset:main-step;
+    list-style:none;
+    margin:10px 0 0;
+    padding:0;
+}
+
+
+/* MAIN 5 STEPS */
+
+.steps > li{
+    counter-increment:main-step;
+
+    display:grid;
+    grid-template-columns:30px minmax(0,1fr);
+    column-gap:12px;
+
+    align-items:start;
+
+    margin:18px 0 28px;
+}
+
+
+/* BLUE CIRCLE — ONLY MAIN STEPS */
+
+.steps > li::before{
+    content:counter(main-step);
+
+    width:22px;
+    height:22px;
+
+    border-radius:50%;
+
+    background:var(--acc);
+    color:#fff;
+
+    font-size:12px;
+
+    display:grid;
+    place-items:center;
+
+    flex:none;
+}
+
+
+/* MAIN STEP TITLE */
+
+.steps > li > strong{
+    display:block;
+
+    padding-top:1px;
+
+    font-size:14px;
+    line-height:1.5;
+
+    color:var(--tx);
+}
+
+
+/* SUB NUMBERED LIST */
+
+.steps > li > ol{
+    grid-column:2;
+
+    list-style:decimal;
+
+    margin:8px 0 0;
+    padding-left:24px;
+
+    display:block;
+}
+
+
+/* SUB STEPS */
+
+.steps > li > ol > li{
+    counter-increment:none;
+
+    display:list-item;
+
+    margin:7px 0;
+
+    padding:0;
+
+    line-height:1.5;
+
+    color:var(--tx);
+}
+
+
+/* REMOVE BLUE CIRCLES FROM SUB-STEPS */
+
+.steps > li > ol > li::before{
+    content:none !important;
+    display:none !important;
+}
+
+
+/* SUBSTEP NUMBER STYLE */
+
+.steps > li > ol > li::marker{
+    color:var(--mut);
+    font-weight:600;
+}
+
+
+/* CODE BLOCK */
+
+.steps pre{
+    grid-column:2;
+
+    width:100%;
+    max-width:100%;
+
+    box-sizing:border-box;
+
+    margin:8px 0 12px;
+
+    background:var(--code);
+    color:var(--codetx);
+
+    border-radius:8px;
+
+    padding:14px;
+
+    overflow-x:auto;
+
+    font:13px/1.7 ui-monospace,Menlo,Consolas,monospace;
+}
+
+
+/* INLINE CODE */
+
+.steps code{
+    background:#eef2f7;
+    color:#b42318;
+
+    padding:2px 5px;
+
+    border-radius:4px;
+
+    font:13px ui-monospace,Menlo,Consolas,monospace;
+}
+
+
+/* CODE INSIDE PRE */
+
+.steps pre code{
+    background:transparent;
+    color:inherit;
+
+    padding:0;
+}
+
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .steps > li{
+        grid-template-columns:28px minmax(0,1fr);
+        column-gap:9px;
+    }
+
+    .steps > li::before{
+        width:22px;
+        height:22px;
+    }
+
+    .steps > li > ol{
+        padding-left:22px;
+    }
+
+}
 .walk{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .mock{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:10px;font-size:12px}
 .mock input{width:100%;border:1px solid var(--bd);border-radius:4px;padding:5px;background:var(--card);color:var(--tx)}
