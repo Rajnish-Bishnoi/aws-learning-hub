@@ -1,11 +1,40 @@
-# AWS Learning Hub
+# AWS Learning Hub — Complete Exact-Style Portal
 
-Static site. No build step.
+Created from the uploaded AWS Learning Hub master page as the visual reference.
 
-## Host on GitHub Pages
-1. Create a repo, upload all files in this folder (index.html at the root).
-2. Settings > Pages > Deploy from a branch > main / root > Save.
+Total topic pages: 80
 
-## Add a lesson
-Open data.js and copy one L("x.y", ...) block. Fields are separated by "|".
-Section numbers (x) match the sidebar order. Sections with no lessons show "Coming soon".
+## Top-level files
+- `index.html` — dashboard
+- `topics/` — one editable HTML page per topic
+
+## Navigation
+Click a category on the left to expand its subtopics. Click a subtopic to open its dedicated page.
+
+## Exact-style content blocks
+The topic pages preserve the master visual structure:
+- Service Details
+- Easy Explanation
+- Real Company Scenario
+- Key Benefits
+- Practical - Console Walkthrough
+- Common Mistakes
+- Remember Trick
+- How It Works
+- Flow / Shortcut
+- Important Commands
+- Cheat Sheet
+- Questions tab
+- My Notes tab
+- Theme toggle
+- Completion/progress
+
+## Editing
+Edit only the individual topic file you need. Shared style is kept in each page so each topic remains self-contained and easy to edit on GitHub.
+
+## GitHub Pages
+Branch: main
+Folder: / (root)
+
+## Safety
+Never run destructive commands against an unverified target. `mkfs` can recreate a filesystem and may destroy existing data.

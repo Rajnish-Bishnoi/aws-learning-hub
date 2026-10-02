@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AWS Learning Hub – AWS Lambda Basics</title>
+<style>
+
+:root{--nav:#0f1b2d;--nav2:#16263d;--navtx:#cfd8e6;--acc:#1d6fe0;--bg:#f4f7fb;--card:#fff;--tx:#14213a;--mut:#4a5a75;--bd:#dbe3ee;--blue:#e8f1fd;--green:#e6f6ec;--orange:#fdf0e1;--red:#fdeaea;--purple:#efeafd;--code:#0d1526;--codetx:#d5e2ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#121c30;--tx:#e6edf8;--mut:#a3b2cb;--bd:#24334f;--blue:#12223b;--green:#10281e;--orange:#2b2112;--red:#2d1717;--purple:#1d1a33;--acc:#5aa2ff}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#121c30;--tx:#e6edf8;--mut:#a3b2cb;--bd:#24334f;--blue:#12223b;--green:#10281e;--orange:#2b2112;--red:#2d1717;--purple:#1d1a33;--acc:#5aa2ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:20px;background:var(--nav);color:#fff;padding:10px 20px}
+.logo{display:flex;align-items:center;gap:14px;min-width:250px}
+.logo b{font-size:26px;letter-spacing:-1px}.logo b i{color:#ff9900;font-style:normal;font-size:12px;display:block;line-height:0;margin-left:2px}
+.logo div small{display:block;color:var(--navtx);font-size:12px}.logo div strong{font-size:18px}
+.search{flex:1;max-width:520px;margin:0 auto;background:var(--nav2);border:1px solid #2c4062;border-radius:8px;padding:9px 14px;color:#fff;font:inherit;width:100%}
+.hr{display:flex;align-items:center;gap:18px;font-size:14px;white-space:nowrap}
+.hr button{background:none;border:0;color:#fff;font:inherit;cursor:pointer}
+.ring{border:2px solid #2c4062;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;font-size:11px}
+.notes{border:1px solid #fff!important;border-radius:6px;padding:8px 12px}
+.wrap{display:flex}
+nav{width:270px;flex:none;background:var(--nav);color:var(--navtx);padding:10px 0 30px;min-height:calc(100vh - 62px);position:sticky;top:62px;align-self:flex-start;max-height:calc(100vh - 62px);overflow:auto}
+nav a{display:flex;gap:12px;align-items:center;padding:11px 18px;color:var(--navtx);text-decoration:none;font-size:14.5px;border-bottom:1px solid #1c2e48}
+nav a:hover{background:var(--nav2)}
+nav a.open{background:var(--acc);color:#fff;font-weight:600;border-bottom:0}
+nav a.sub{padding:9px 18px 9px 44px;font-size:13.5px;background:#13233a;border:0}
+nav a.sub.on{background:#1d6fe0;color:#fff;margin:0 6px;border-radius:5px;padding-left:38px}
+nav .ic{width:20px;text-align:center}
+main{flex:1;min-width:0;padding:18px 24px 40px}
+.crumb{font-size:13px;color:var(--mut)}
+.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin:6px 0 16px;flex-wrap:wrap}
+h1{font-size:30px;margin:0;display:flex;align-items:center;gap:14px}
+.sub-t{color:var(--mut);margin:4px 0 0 0;font-size:16px}
+.done{border:1.5px solid var(--acc);background:var(--card);color:var(--acc);padding:10px 18px;border-radius:6px;font:600 14px inherit;cursor:pointer}
+.done.on{background:var(--acc);color:#fff}
+.tabs{display:flex;gap:30px;border-bottom:1px solid var(--bd);margin:0 0 18px;overflow-x:auto}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:10px 4px;font:inherit;color:var(--tx);cursor:pointer;white-space:nowrap}
+.tabs button.on{color:var(--acc);border-color:var(--acc);font-weight:600}
+.grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:20px}
+.l{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start}
+.r{display:grid;gap:16px;align-content:start}
+.c{border-radius:10px;padding:16px 18px;border:1px solid var(--bd)}
+.c h3{margin:0 0 8px;font-size:17px;display:flex;gap:10px;align-items:center}
+.c p{margin:0}
+.blue{background:var(--blue)}.green{background:var(--green)}.orange{background:var(--orange)}.red{background:var(--red)}.purple{background:var(--purple)}.white{background:var(--card)}
+.blue h3{color:#1d5fc4}.green h3{color:#1c7a45}.orange h3{color:#b0530a}.red h3{color:#c0392b}.purple h3{color:#5b3fc4}
+:root[data-theme="dark"] .blue h3,:root[data-theme="dark"] .green h3,:root[data-theme="dark"] .orange h3,:root[data-theme="dark"] .red h3,:root[data-theme="dark"] .purple h3{filter:brightness(1.5)}
+.full{grid-column:1/-1}
+.ul{list-style:none;margin:0;padding:0}
+.ul li{margin:7px 0;display:flex;gap:10px;align-items:center}
+.ck{width:20px;height:20px;border-radius:50%;background:#f59a23;color:#fff;font-size:12px;display:grid;place-items:center;flex:none}
+.steps{counter-reset:s;list-style:none;margin:10px 0 0;padding:0}
+.steps li{counter-increment:s;display:flex;gap:12px;align-items:center;margin:9px 0}
+.steps li:before{content:counter(s);width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;display:grid;place-items:center;flex:none}
+.walk{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.mock{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:10px;font-size:12px}
+.mock input{width:100%;border:1px solid var(--bd);border-radius:4px;padding:5px;background:var(--card);color:var(--tx)}
+.os{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px;text-align:center}
+.os span{border:1px solid var(--bd);border-radius:4px;padding:10px 2px;font-weight:600}
+.flow{display:flex;align-items:center;justify-content:space-around;gap:6px;flex-wrap:wrap;text-align:center;font-size:13px}
+.flow div b{display:block;font-size:26px}
+.arrow{color:var(--mut)}
+.srv{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;font-size:12.5px;margin-top:12px;border:1px solid var(--bd);border-radius:8px;padding:12px 6px}
+.srv b{display:block;font-size:28px}
+.bar{background:var(--blue);border-radius:6px;text-align:center;padding:10px;margin-top:10px;font-size:14px}
+pre{background:var(--code);color:var(--codetx);border-radius:8px;padding:14px;margin:0;overflow-x:auto;font:13px/1.7 ui-monospace,Menlo,Consolas,monospace}
+.dot{color:var(--acc)}
+@media(max-width:1100px){.grid{grid-template-columns:1fr}}
+@media(max-width:860px){nav{display:none}.search{display:none}.hr span.hide{display:none}.logo{min-width:0}main{padding:14px}.l,.walk{grid-template-columns:1fr}h1{font-size:24px}}
+
+/* Learning Hub navigation helpers */
+nav .cat{display:block}
+nav a.cat-head{justify-content:flex-start;cursor:pointer}
+nav a.cat-head .chev{margin-left:auto;color:#7890aa;transition:.18s}
+nav .cat.open a.cat-head{background:var(--nav2)}
+nav .cat.open a.cat-head .chev{transform:rotate(90deg);color:#ff9900}
+nav .subwrap{display:none}
+nav .cat.open .subwrap{display:block}
+.question-panel,.notes-panel{margin-top:16px}
+.notes-area{width:100%;min-height:180px;border:1px solid var(--bd);border-radius:8px;padding:12px;background:var(--card);color:var(--tx);font:14px/1.5 inherit;resize:vertical}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><b>aws<i>⌣</i></b><div><strong>AWS Learning Hub</strong><small>Learn • Practice • Build • Grow</small></div></div>
+  <input class="search" id="q" placeholder="Search topics, services, commands..." aria-label="Search">
+  <div class="hr"><button id="theme">☀ Theme</button><span class="hide">Progress</span><span class="ring" id="pg">0%</span><button class="notes" onclick="showTab('notes')">📝 My Notes</button></div>
+</header>
+<div class="wrap">
+<nav>
+<a href="../../index.html"><span class="ic">🏠</span>Dashboard</a>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">☁</span>1. Cloud Basics<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/1-cloud-basics/introduction-cloud-computing.html" class="sub">1. Introduction to Cloud Computing</a>
+<a href="../../topics/1-cloud-basics/service-models-iaas-paas-saas.html" class="sub">2. Cloud Service Models (IaaS, PaaS, SaaS)</a>
+<a href="../../topics/1-cloud-basics/deployment-models.html" class="sub">3. Cloud Deployment Models (Public, Private, Hybrid)</a>
+<a href="../../topics/1-cloud-basics/global-infrastructure.html" class="sub">4. Global Infrastructure (Regions, AZs, Edge Locations)</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">🖥</span>2. Compute (AWS EC2 &amp; Azure VM)<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/2-compute/ec2.html" class="sub">1. Elastic Cloud Computing (EC2)</a>
+<a href="../../topics/2-compute/launch-connect-manage-ec2.html" class="sub">2. Launch, Connect &amp; Manage EC2 Instances</a>
+<a href="../../topics/2-compute/security-groups-key-pairs.html" class="sub">3. Security Groups &amp; Key Pairs</a>
+<a href="../../topics/2-compute/instance-types-userdata-templates.html" class="sub">4. Instance Types, User Data, Templates</a>
+<a href="../../topics/2-compute/ami.html" class="sub">5. Amazon Machine Image (AMI)</a>
+<a href="../../topics/2-compute/azure-vm.html" class="sub">6. Azure Virtual Machines</a>
+<a href="../../topics/2-compute/azure-vm-image-vmss.html" class="sub">7. Azure VM Image &amp; Scale Set (VMSS)</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">⌨</span>3. Linux Fundamentals<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/3-linux/linux-commands-1.html" class="sub">1. Linux Commands (Part 1)</a>
+<a href="../../topics/3-linux/linux-commands-2.html" class="sub">2. Linux Commands (Part 2)</a>
+<a href="../../topics/3-linux/linux-commands-3.html" class="sub">3. Linux Commands (Part 3)</a>
+<a href="../../topics/3-linux/permissions-processes.html" class="sub">4. File Permissions &amp; Process Management</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">🌐</span>4. Web Servers<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/4-web-servers/apache.html" class="sub">1. Install &amp; Configure Apache</a>
+<a href="../../topics/4-web-servers/nginx.html" class="sub">2. Install &amp; Configure Nginx</a>
+<a href="../../topics/4-web-servers/static-website-apache-nginx.html" class="sub">3. Host Static Website on Apache/Nginx</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">🗄</span>5. Storage<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/5-storage/ebs-volume-types.html" class="sub">1. EBS (Elastic Block Store) – Volume Types</a>
+<a href="../../topics/5-storage/mounting-file-system.html" class="sub">2. Mounting &amp; File System Setup</a>
+<a href="../../topics/5-storage/attach-ebs-share-data.html" class="sub">3. Attach EBS to EC2 &amp; Share Data</a>
+<a href="../../topics/5-storage/snapshot-restore.html" class="sub">4. Snapshot &amp; Restore Process</a>
+<a href="../../topics/5-storage/s3-bucket-object-management.html" class="sub">5. S3 Bucket Creation &amp; Object Management</a>
+<a href="../../topics/5-storage/s3-versioning-policies-static.html" class="sub">6. Versioning, Policies, Static Website Hosting</a>
+<a href="../../topics/5-storage/s3-lifecycle-replication.html" class="sub">7. S3 Lifecycle, Replication</a>
+<a href="../../topics/5-storage/s3-presigned-multipart.html" class="sub">8. S3 Presigned URL, Multipart Upload</a>
+<a href="../../topics/5-storage/s3-event-object-lock.html" class="sub">9. S3 Event Notification &amp; Object Lock</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">🔗</span>6. Networking<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/6-networking/vpc-cidr.html" class="sub">1. VPC (Virtual Private Cloud) &amp; CIDR Range</a>
+<a href="../../topics/6-networking/public-private-subnets.html" class="sub">2. Public &amp; Private Subnets</a>
+<a href="../../topics/6-networking/internet-gateway-nat-gateway.html" class="sub">3. Internet Gateway, NAT Gateway</a>
+<a href="../../topics/6-networking/route-tables-associations.html" class="sub">4. Route Tables &amp; Associations</a>
+<a href="../../topics/6-networking/vpc-peering.html" class="sub">5. VPC Peering</a>
+<a href="../../topics/6-networking/transit-gateway.html" class="sub">6. Transit Gateway</a>
+<a href="../../topics/6-networking/network-acls.html" class="sub">7. Network ACLs (NACLs)</a>
+<a href="../../topics/6-networking/security-groups-rules.html" class="sub">8. Security Groups (Inbound &amp; Outbound Rules)</a>
+<a href="../../topics/6-networking/azure-vnet.html" class="sub">9. Azure Virtual Network (VNet)</a>
+<a href="../../topics/6-networking/azure-subnets-peering.html" class="sub">10. Azure Subnets &amp; Peering</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">⚖</span>7. Load Balancing &amp; Scaling<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/7-load-balancing-scaling/classic-load-balancer-clb.html" class="sub">1. Classic Load Balancer (CLB)</a>
+<a href="../../topics/7-load-balancing-scaling/application-load-balancer-alb.html" class="sub">2. Application Load Balancer (ALB)</a>
+<a href="../../topics/7-load-balancing-scaling/advanced-alb-multiple-target-groups.html" class="sub">3. Advanced ALB with Multiple Target Groups</a>
+<a href="../../topics/7-load-balancing-scaling/auto-scaling-basics.html" class="sub">4. Auto Scaling Basics</a>
+<a href="../../topics/7-load-balancing-scaling/step-simple-scaling.html" class="sub">5. Step &amp; Simple Scaling Policies</a>
+<a href="../../topics/7-load-balancing-scaling/azure-load-balancer-application-gateway.html" class="sub">6. Azure Load Balancer &amp; Application Gateway</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">🛡</span>8. IAM, CLI &amp; Terraform<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/8-iam-cli-terraform/iam-introduction.html" class="sub">1. IAM Introduction</a>
+<a href="../../topics/8-iam-cli-terraform/iam-users-groups-policies.html" class="sub">2. IAM Users, Groups, Policies</a>
+<a href="../../topics/8-iam-cli-terraform/iam-roles-instance-profiles.html" class="sub">3. IAM Roles &amp; Instance Profiles</a>
+<a href="../../topics/8-iam-cli-terraform/aws-cli-basics.html" class="sub">4. AWS CLI Basics</a>
+<a href="../../topics/8-iam-cli-terraform/azure-cli-basics.html" class="sub">5. Azure CLI Basics</a>
+<a href="../../topics/8-iam-cli-terraform/terraform-introduction.html" class="sub">6. Terraform Introduction</a>
+<a href="../../topics/8-iam-cli-terraform/iac-practice.html" class="sub">7. Infrastructure as Code (IaC) Practice</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">📈</span>9. Monitoring &amp; Logging<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/9-monitoring-logging/cloudwatch-metrics-dashboards.html" class="sub">1. CloudWatch Metrics &amp; Dashboards</a>
+<a href="../../topics/9-monitoring-logging/cloudwatch-alarms.html" class="sub">2. CloudWatch Alarms</a>
+<a href="../../topics/9-monitoring-logging/eventbridge-cloudwatch-logs.html" class="sub">3. EventBridge &amp; CloudWatch Logs</a>
+<a href="../../topics/9-monitoring-logging/cloudtrail-basics.html" class="sub">4. CloudTrail Basics</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">🌍</span>10. CDN &amp; DNS<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/10-cdn-dns/cloudfront-overview.html" class="sub">1. CloudFront Overview</a>
+<a href="../../topics/10-cdn-dns/cdn-s3.html" class="sub">2. CDN Configuration with S3</a>
+<a href="../../topics/10-cdn-dns/dns-concepts.html" class="sub">3. DNS Concepts &amp; Domain Name System</a>
+<a href="../../topics/10-cdn-dns/route53-hosted-zones.html" class="sub">4. Route 53 (Part 1 – Hosted Zones)</a>
+<a href="../../topics/10-cdn-dns/route53-records-failover.html" class="sub">5. Route 53 (Part 2 – Record Sets &amp; Failover)</a>
+<a href="../../topics/10-cdn-dns/azure-dns-zones.html" class="sub">6. Azure DNS Zones</a>
+</div></div>
+<div class="cat open">
+<a href="#" class="cat-head open" onclick="toggleCat(this);return false;"><span class="ic">λ</span>11. Serverless &amp; Automation<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/11-serverless-automation/lambda-basics.html" class="sub on">1. AWS Lambda Basics</a>
+<a href="../../topics/11-serverless-automation/lambda-s3-eventbridge.html" class="sub">2. Lambda Triggering via S3/EventBridge</a>
+<a href="../../topics/11-serverless-automation/lambda-dynamodb.html" class="sub">3. Lambda with DynamoDB</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">🛢</span>12. Databases<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/12-databases/rds-basics.html" class="sub">1. AWS RDS Basics</a>
+<a href="../../topics/12-databases/multi-az-read-replica.html" class="sub">2. Multi-AZ &amp; Read Replica</a>
+<a href="../../topics/12-databases/aurora-database.html" class="sub">3. Aurora Database</a>
+<a href="../../topics/12-databases/dynamodb-basics.html" class="sub">4. DynamoDB (Part 1 – Basics)</a>
+<a href="../../topics/12-databases/dynamodb-indexes-streams.html" class="sub">5. DynamoDB (Part 2 – Indexes &amp; Streams)</a>
+<a href="../../topics/12-databases/database-migration-service-dms.html" class="sub">6. Database Migration Service (DMS)</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">⚙</span>13. DevOps Integration (Extra but Important)<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/13-devops-integration/cicd-basics.html" class="sub">1. CI/CD Basics</a>
+<a href="../../topics/13-devops-integration/git-github-integration.html" class="sub">2. Git &amp; GitHub Integration</a>
+<a href="../../topics/13-devops-integration/codepipeline-buildcodeploy.html" class="sub">3. AWS CodePipeline / CodeBuild / CodeDeploy</a>
+<a href="../../topics/13-devops-integration/jenkins-setup-ec2.html" class="sub">4. Jenkins Setup on EC2</a>
+<a href="../../topics/13-devops-integration/docker-basics.html" class="sub">5. Docker Basics (for DevOps Cloud Projects)</a>
+<a href="../../topics/13-devops-integration/kubernetes-intro.html" class="sub">6. Kubernetes (Intro)</a>
+</div></div>
+<div class="cat ">
+<a href="#" class="cat-head" onclick="toggleCat(this);return false;"><span class="ic">💰</span>14. Cost &amp; Security Management<span class="chev">▶</span></a>
+<div class="subwrap">
+<a href="../../topics/14-cost-security/aws-billing-dashboard.html" class="sub">1. AWS Billing Dashboard</a>
+<a href="../../topics/14-cost-security/cost-explorer-budgets.html" class="sub">2. Cost Explorer &amp; Budgets</a>
+<a href="../../topics/14-cost-security/trusted-advisor.html" class="sub">3. Trusted Advisor</a>
+<a href="../../topics/14-cost-security/waf-shield.html" class="sub">4. AWS WAF &amp; Shield (Optional)</a>
+<a href="../../topics/14-cost-security/backup-disaster-recovery.html" class="sub">5. Backup &amp; Disaster Recovery Concepts</a>
+</div></div>
+</nav>
+<main>
+  <div class="crumb">Home › 11. Serverless &amp; Automation › AWS Lambda Basics</div>
+  <div class="top">
+    <div><h1><span style="font-size:42px">λ</span>11.1 AWS Lambda Basics</h1><p class="sub-t">Event aaya → function chali → result mila.</p></div>
+    <button class="done" id="done">✓ Mark as Completed</button>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="on" data-tab="overview">Overview</button>
+    <button data-tab="practical">Practical</button>
+    <button data-tab="commands">Commands</button>
+    <button data-tab="shortcuts">Shortcuts</button>
+    <button data-tab="questions">Questions</button>
+    <button data-tab="cheat">Cheat Sheet</button>
+    <button data-tab="notes">My Notes</button>
+  </div>
+
+  <div id="overview">
+  <div class="grid">
+    <div class="l">
+
+      <section class="c blue"><h3>📘 1. Service Details</h3><p>AWS Lambda Basics is a key topic in 11. Serverless &amp; Automation. Learn the purpose, components, workflow, practical implementation and common troubleshooting points.</p></section>
+
+      <section class="c green"><h3>🧠 2. Easy Explanation</h3><p>Event aaya → function chali → result mila.</p></section>
+
+      <section class="c orange"><h3>🏢 3. Real Company Scenario</h3><p>A company uses AWS Lambda Basics as part of a larger production architecture. The exact design depends on workload, security, reliability, performance and cost requirements.</p></section>
+
+      <section class="c red"><h3>🎯 4. Key Benefits</h3><ul class="ul"><li><span class="ck">✓</span>Event-driven thinking</li><li><span class="ck">✓</span>Automation</li><li><span class="ck">✓</span>AWS integrations</li></ul></section>
+
+      <section class="c green full"><h3>🔧 5. Practical - AWS Console Walkthrough</h3>
+        <div class="walk"><div><p>Use a small lab. Verify each major step before moving forward.</p>
+          <ol class="steps"><li>Create a small function.</li><li>Configure a test trigger if relevant.</li><li>Invoke it.</li><li>Inspect logs/result.</li><li>Clean up.</li></ol>
+        </div>
+        <div class="mock"><b>Learning Lab</b> <small style="color:var(--acc)">Practical</small><p style="color:var(--mut);margin:2px 0 8px">Topic: AWS Lambda Basics</p>
+          <b>Goal</b><p style="margin:4px 0 8px">Understand → Configure → Test → Verify</p>
+          <div class="os"><span>Concept</span><span>Setup</span><span>Test</span><span>Verify</span></div>
+        </div></div>
+      </section>
+
+      <section class="c orange"><h3>⚠ 8. Common Mistakes</h3><ul class="ul" style="font-size:14px"><li><span class="dot">•</span>Wrong Region/account/subscription/resource</li><li><span class="dot">•</span>Skipping verification</li><li><span class="dot">•</span>Opening more access than needed</li><li><span class="dot">•</span>Ignoring logs/status</li><li><span class="dot">•</span>Leaving billable resources running</li></ul></section>
+
+      <section class="c red"><h3>🧠 9. Remember Trick</h3><p><b>Event → Function → Result.</b></p></section>
+    </div>
+
+    <div class="r">
+      <section class="c white"><h3>⚙ How It Works</h3>
+        <div class="flow"><div><b>🎯</b>Event</div><span class="arrow">→</span><div><b>⚙</b>Lambda</div><span class="arrow">→</span><div><b>🚀</b>Execution</div><span class="arrow">→</span><div><b>✅</b>Result</div></div>
+        <div class="srv"><div><b>🎯</b>Purpose</div><div><b>⚙</b>Config</div><div><b>🛠</b>Practical</div><div><b>✅</b>Verify</div></div>
+        <div class="bar">Understand • Configure • Test • Verify</div>
+      </section>
+
+      <section class="c orange"><h3>⚡ 6. Flow / Shortcut</h3><div class="flow"><div><b>🎯</b>Event</div><span class="arrow">→</span><div><b>⚙</b>Lambda</div><span class="arrow">→</span><div><b>🚀</b>Execution</div><span class="arrow">→</span><div><b>✅</b>Result</div></div></section>
+
+      <section class="c purple"><h3>⌨ 7. Important Commands (if using CLI)</h3><pre>aws lambda list-functions</pre></section>
+
+      <section class="c blue"><h3>📄 10. Cheat Sheet</h3><ul class="ul" style="font-size:14px"><li><span class="dot">•</span>AWS Lambda Basics = know its purpose</li><li><span class="dot">•</span>Know the main components</li><li><span class="dot">•</span>Know the flow</li><li><span class="dot">•</span>Know one practical</li><li><span class="dot">•</span>Know one troubleshooting point</li><li><span class="dot">•</span>Know security/cost implications</li></ul></section>
+    </div>
+  </div>
+  </div>
+
+  <section id="panel-practical" class="hidden-panel">
+    <section class="c green"><h3>🔧 Practical — Full Step List</h3><ol class="steps"><li>Create a small function.</li><li>Configure a test trigger if relevant.</li><li>Invoke it.</li><li>Inspect logs/result.</li><li>Clean up.</li></ol></section>
+  </section>
+
+  <section id="panel-commands" class="hidden-panel">
+    <section class="c purple"><h3>⌨ Commands</h3><pre>aws lambda list-functions</pre></section>
+  </section>
+
+  <section id="panel-shortcuts" class="hidden-panel">
+    <section class="c orange"><h3>⚡ Shortcuts</h3><p><b>Event → Function → Result.</b></p><p class="small">Event → Lambda → Execution → Result</p></section>
+  </section>
+
+  <section id="panel-questions" class="hidden-panel question-panel">
+    <section class="c red"><h3>🎯 Interview Questions</h3>
+      <ol>
+        <li>What is AWS Lambda Basics?</li>
+        <li>Why would a company use AWS Lambda Basics?</li>
+        <li>What are the key components or settings?</li>
+        <li>Explain the practical flow of AWS Lambda Basics.</li>
+        <li>What is one common troubleshooting issue?</li>
+        <li>What security or cost point would you check before production?</li>
+      </ol>
+      <h3>🧪 Scenario Questions</h3>
+      <ol>
+        <li>The setup is configured but the application cannot use it. What do you check first?</li>
+        <li>The team wants to reduce cost without breaking the workload. What would you review?</li>
+        <li>A resource is reachable when it should not be. Which security/routing layers would you inspect?</li>
+      </ol>
+    </section>
+  </section>
+
+  <section id="panel-cheat" class="hidden-panel">
+    <section class="c blue"><h3>📄 Cheat Sheet</h3><ul class="ul" style="font-size:14px"><li><span class="dot">•</span>AWS Lambda Basics = know its purpose</li><li><span class="dot">•</span>Know the main components</li><li><span class="dot">•</span>Know the flow</li><li><span class="dot">•</span>Know one practical</li><li><span class="dot">•</span>Know one troubleshooting point</li><li><span class="dot">•</span>Know security/cost implications</li></ul></section>
+  </section>
+
+  <section id="panel-notes" class="hidden-panel notes-panel">
+    <section class="c purple"><h3>📝 My Notes</h3>
+      <p>Notes are saved in this browser for this topic.</p>
+      <textarea class="notes-area" id="notesArea" placeholder="What I learned... Commands... Error... Fix... Interview point..."></textarea>
+    </section>
+  </section>
+
+</main>
+</div>
+
+<script>
+var root=document.documentElement;
+try{var t=localStorage.getItem("theme");if(t)root.setAttribute("data-theme",t)}catch(e){}
+document.getElementById("theme").onclick=function(){
+  var dark=root.getAttribute("data-theme")==="dark"||(!root.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);
+  var n=dark?"light":"dark";root.setAttribute("data-theme",n);try{localStorage.setItem("theme",n)}catch(e){}
+};
+
+var key="done_lambda-basics",d=document.getElementById("done"),pg=document.getElementById("pg");
+function setDone(v){d.classList.toggle("on",v);d.textContent=v?"✓ Completed":"✓ Mark as Completed";pg.textContent=v?"100%":"0%"}
+try{setDone(localStorage.getItem(key)==="1")}catch(e){}
+d.onclick=function(){var v=!d.classList.contains("on");setDone(v);try{localStorage.setItem(key,v?"1":"0")}catch(e){}};
+
+function toggleCat(el){el.parentElement.classList.toggle("open");}
+
+function showTab(name){
+  document.getElementById("overview").style.display=(name==="overview")?"block":"none";
+  ["practical","commands","shortcuts","questions","cheat","notes"].forEach(function(x){
+    var p=document.getElementById("panel-"+x);
+    if(p)p.style.display=(x===name)?"block":"none";
+  });
+  document.querySelectorAll("#tabs button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-tab")===name)});
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("#tabs button").forEach(function(b){b.onclick=function(){showTab(b.getAttribute("data-tab"))}});
+
+var nb=document.getElementById("notesArea");
+if(nb){
+  try{nb.value=localStorage.getItem("notes_lambda-basics")||""}catch(e){}
+  nb.oninput=function(){try{localStorage.setItem("notes_lambda-basics",nb.value)}catch(e){}};
+}
+
+document.getElementById("q").oninput=function(e){
+  var v=e.target.value.toLowerCase();
+  document.querySelectorAll("nav a.sub").forEach(function(a){
+    a.style.display=(!v||a.textContent.toLowerCase().indexOf(v)>-1)?"flex":"none";
+  });
+};
+</script>
+</body>
+</html>
