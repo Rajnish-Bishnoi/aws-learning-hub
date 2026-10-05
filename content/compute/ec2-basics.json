@@ -1,0 +1,292 @@
+{
+ "icon": "🖥",
+ "sub": "Virtual servers in the cloud: lifecycle, Stop vs Terminate.",
+ "tabs": {
+  "Overview": [
+   {
+    "h": "1. Service Details",
+    "c": "blue",
+    "p": "Amazon EC2 gives resizable virtual servers called instances. You pick the OS, CPU, memory, storage and network, and pay per second or hour."
+   },
+   {
+    "h": "2. Easy Explanation",
+    "c": "green",
+    "p": "A computer you rent by the hour. Stop it and compute billing stops; terminate it and it is gone."
+   },
+   {
+    "h": "3. Real Company Scenario",
+    "c": "orange",
+    "p": "A web shop runs its site on EC2, adds instances before a sale and stops them after to save money."
+   },
+   {
+    "t": "list",
+    "h": "4. Key Benefits",
+    "c": "red",
+    "items": [
+     "Launch in minutes",
+     "Many sizes and types",
+     "Full OS control",
+     "Pay only for use",
+     "Scales with Auto Scaling"
+    ]
+   },
+   {
+    "ref": "Practical.0",
+    "h": "5. Practical - AWS Console Walkthrough",
+    "c": "green",
+    "w": "full"
+   },
+   {
+    "ref": "Cheat Sheet.1",
+    "h": "8. Common Mistakes",
+    "c": "orange"
+   },
+   {
+    "h": "9. Remember Trick",
+    "c": "red",
+    "p": "<b>Stop = Pause • Terminate = Delete forever • Check the bill</b>"
+   },
+   {
+    "ref": "Architecture.1",
+    "h": "How It Works",
+    "c": "white",
+    "r": 1
+   },
+   {
+    "ref": "Architecture.0",
+    "h": "6. Flow / Shortcut",
+    "c": "orange",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Architecture.2",
+    "h": "7. Architecture Diagram",
+    "c": "purple",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Cheat Sheet.0",
+    "h": "10. Cheat Sheet",
+    "c": "blue",
+    "r": 1
+   }
+  ],
+  "Architecture": [
+   {
+    "t": "flow",
+    "h": "Flow / Request Journey",
+    "items": [
+     "🔑 Login",
+     "🖥 EC2",
+     "🚀 Launch",
+     "💻 Connect"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "steps",
+    "h": "How It Works",
+    "items": [
+     "Pick an AMI (OS template)",
+     "Choose an instance type (CPU and RAM)",
+     "Set network, storage and security group",
+     "Launch the instance",
+     "Connect with SSH or Session Manager"
+    ]
+   },
+   {
+    "t": "svg",
+    "h": "Architecture Diagram",
+    "c": "purple",
+    "w": "full",
+    "svg": "<svg class='dg' viewBox='0 0 520 150' role='img'><defs><marker id='a' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#1d6fe0'/></marker></defs><rect x='3' y='8' width='514' height='134' rx='10' class='d'/><rect x='10' y='38' width='99' height='74' rx='8' class='b'/><text x='59' y='68' text-anchor='middle' class='e'>🔑</text><text x='59' y='96' text-anchor='middle' class='h'>Login</text><line x1='109' y1='75' x2='143' y2='75' class='l'/><rect x='143' y='38' width='99' height='74' rx='8' class='b'/><text x='192' y='68' text-anchor='middle' class='e'>🖥</text><text x='192' y='96' text-anchor='middle' class='h'>EC2</text><line x1='242' y1='75' x2='276' y2='75' class='l'/><rect x='276' y='38' width='99' height='74' rx='8' class='b'/><text x='325' y='68' text-anchor='middle' class='e'>🚀</text><text x='325' y='96' text-anchor='middle' class='h'>Launch</text><line x1='375' y1='75' x2='409' y2='75' class='l'/><rect x='409' y='38' width='99' height='74' rx='8' class='b'/><text x='458' y='68' text-anchor='middle' class='e'>💻</text><text x='458' y='96' text-anchor='middle' class='h'>Connect</text></svg>"
+   }
+  ],
+  "Components": [
+   {
+    "t": "table",
+    "h": "Core Components",
+    "cols": [
+     "Component",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "Instance",
+      "A virtual server"
+     ],
+     [
+      "AMI",
+      "Template with OS and software"
+     ],
+     [
+      "Instance type",
+      "Size such as t3.micro"
+     ],
+     [
+      "Key pair",
+      "Login key for SSH"
+     ],
+     [
+      "Security group",
+      "Firewall for the instance"
+     ],
+     [
+      "EBS volume",
+      "Disk attached to it"
+     ],
+     [
+      "Region and AZ",
+      "Where it runs"
+     ]
+    ]
+   }
+  ],
+  "Practical": [
+   {
+    "t": "steps",
+    "h": "AWS Console Walkthrough (Hands-on)",
+    "items": [
+     "Console > EC2 > Launch instance",
+     "Name it and pick the Amazon Linux AMI",
+     "Choose t3.micro (Free Tier eligible)",
+     "Create a key pair and download the .pem",
+     "Allow SSH from My IP in the security group",
+     "Launch and wait for state Running",
+     "Connect with EC2 Instance Connect",
+     "Stop the instance and note the state change",
+     "Terminate it after practice"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "code",
+    "h": "Commands / Script for this practice",
+    "code": [
+     "chmod 400 my-key.pem",
+     "ssh -i my-key.pem ec2-user@<public-ip>",
+     "sudo yum update -y",
+     "exit"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Clean Up",
+    "p": "Terminate or delete everything you created after practice to avoid charges."
+   }
+  ],
+  "Security": [
+   {
+    "t": "list",
+    "h": "Security Best Practices",
+    "items": [
+     "Allow SSH only from your IP, never 0.0.0.0/0",
+     "Use IAM roles instead of access keys on the server",
+     "Prefer SSM Session Manager over open SSH",
+     "Keep the OS patched",
+     "Require IMDSv2"
+    ],
+    "w": "full"
+   }
+  ],
+  "Examples": [
+   {
+    "h": "Example 1: Website hosting",
+    "p": "run Apache or Nginx on EC2 behind a load balancer."
+   },
+   {
+    "h": "Example 2: Dev and test",
+    "p": "launch a server for a day and terminate it."
+   },
+   {
+    "h": "Example 3: Batch jobs",
+    "p": "start many instances for a job and stop them after."
+   }
+  ],
+  "CLI Commands": [
+   {
+    "t": "code",
+    "h": "AWS CLI Commands",
+    "code": [
+     "# Launch",
+     "aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type t3.micro --key-name my-key --security-group-ids sg-0abc123",
+     "",
+     "# Start, stop, terminate",
+     "aws ec2 start-instances --instance-ids i-0abc123",
+     "aws ec2 stop-instances --instance-ids i-0abc123",
+     "aws ec2 terminate-instances --instance-ids i-0abc123",
+     "",
+     "# List",
+     "aws ec2 describe-instances --query 'Reservations[].Instances[].[InstanceId,State.Name]'"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Note",
+    "p": "IDs like i-0abc123 and sg-0abc123 are examples. Replace them with your real IDs."
+   }
+  ],
+  "Interview Qs": [
+   {
+    "t": "qa",
+    "h": "Interview Questions (with Answers)",
+    "items": [
+     [
+      "What is EC2?",
+      "A service that gives resizable virtual servers in the cloud."
+     ],
+     [
+      "Stop vs Terminate?",
+      "Stop pauses the instance (EBS kept, no compute charge). Terminate deletes it and, by default, its root volume."
+     ],
+     [
+      "Does the public IP stay after stop and start?",
+      "No. It changes unless you use an Elastic IP."
+     ],
+     [
+      "What are the instance states?",
+      "pending, running, stopping, stopped, shutting-down, terminated."
+     ],
+     [
+      "How do you connect to a Linux instance?",
+      "SSH with the key pair, EC2 Instance Connect, or SSM Session Manager."
+     ],
+     [
+      "What is billed when stopped?",
+      "EBS storage and Elastic IPs, not compute."
+     ]
+    ]
+   }
+  ],
+  "Cheat Sheet": [
+   {
+    "t": "list",
+    "h": "Quick Facts",
+    "items": [
+     "Instance states: pending, running, stopped, terminated",
+     "Stop = pause, Terminate = delete",
+     "Public IP changes on stop and start",
+     "A stopped instance still pays for EBS",
+     "Default Linux user: ec2-user"
+    ]
+   },
+   {
+    "t": "list",
+    "h": "Common Mistakes",
+    "items": [
+     "Leaving instances running",
+     "Confusing Stop and Terminate",
+     "SSH open to everyone",
+     "Losing the .pem file",
+     "Launching in the wrong region"
+    ]
+   },
+   {
+    "h": "Remember Trick",
+    "p": "<b>Stop = Pause • Terminate = Delete forever • Check the bill</b>"
+   }
+  ]
+ }
+}

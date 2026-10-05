@@ -1,0 +1,282 @@
+{
+ "icon": "🖥",
+ "sub": "Pick the right size and the cheapest way to pay.",
+ "tabs": {
+  "Overview": [
+   {
+    "h": "1. Service Details",
+    "c": "blue",
+    "p": "Instance types are grouped by purpose: General (t, m), Compute (c), Memory (r), Storage (i, d), GPU (p, g). Pricing models are On-Demand, Savings Plans or Reserved, Spot and Dedicated Hosts."
+   },
+   {
+    "h": "2. Easy Explanation",
+    "c": "green",
+    "p": "Like renting vehicles: a scooter for small jobs, a truck for heavy loads. Pay daily (On-Demand), take a yearly deal (Savings Plan), or grab a cheap leftover seat that can be taken back (Spot)."
+   },
+   {
+    "h": "3. Real Company Scenario",
+    "c": "orange",
+    "p": "A company runs steady databases on 1-year Savings Plans, web servers On-Demand, and night video jobs on Spot to save up to about 90%."
+   },
+   {
+    "t": "list",
+    "h": "4. Key Benefits",
+    "c": "red",
+    "items": [
+     "Right-size for the job",
+     "Big savings with commitments",
+     "Spot for flexible jobs",
+     "Dedicated Hosts for licence rules"
+    ]
+   },
+   {
+    "ref": "Practical.0",
+    "h": "5. Practical - AWS Console Walkthrough",
+    "c": "green",
+    "w": "full"
+   },
+   {
+    "ref": "Cheat Sheet.1",
+    "h": "8. Common Mistakes",
+    "c": "orange"
+   },
+   {
+    "h": "9. Remember Trick",
+    "c": "red",
+    "p": "<b>T = Tiny burst • M = Middle • C = CPU • R = RAM</b>"
+   },
+   {
+    "ref": "Architecture.1",
+    "h": "How It Works",
+    "c": "white",
+    "r": 1
+   },
+   {
+    "ref": "Architecture.0",
+    "h": "6. Flow / Shortcut",
+    "c": "orange",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Architecture.2",
+    "h": "7. Architecture Diagram",
+    "c": "purple",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Cheat Sheet.0",
+    "h": "10. Cheat Sheet",
+    "c": "blue",
+    "r": 1
+   }
+  ],
+  "Architecture": [
+   {
+    "t": "flow",
+    "h": "Flow / Request Journey",
+    "items": [
+     "🧮 Estimate",
+     "📦 Pick type",
+     "💲 Pick pricing",
+     "📉 Monitor"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "steps",
+    "h": "How It Works",
+    "items": [
+     "Estimate CPU, RAM and network need",
+     "Choose a family (t, m, c, r...)",
+     "Pick a size (micro to xlarge)",
+     "Choose a pricing model",
+     "Monitor and right-size later"
+    ]
+   },
+   {
+    "t": "svg",
+    "h": "Architecture Diagram",
+    "c": "purple",
+    "w": "full",
+    "svg": "<svg class='dg' viewBox='0 0 520 150' role='img'><defs><marker id='a' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#1d6fe0'/></marker></defs><rect x='3' y='8' width='514' height='134' rx='10' class='d'/><rect x='10' y='38' width='99' height='74' rx='8' class='b'/><text x='59' y='68' text-anchor='middle' class='e'>🧮</text><text x='59' y='96' text-anchor='middle' class='h'>Estimate</text><line x1='109' y1='75' x2='143' y2='75' class='l'/><rect x='143' y='38' width='99' height='74' rx='8' class='b'/><text x='192' y='68' text-anchor='middle' class='e'>📦</text><text x='192' y='96' text-anchor='middle' class='h'>Pick type</text><line x1='242' y1='75' x2='276' y2='75' class='l'/><rect x='276' y='38' width='99' height='74' rx='8' class='b'/><text x='325' y='68' text-anchor='middle' class='e'>💲</text><text x='325' y='96' text-anchor='middle' class='h'>Pick pricing</text><line x1='375' y1='75' x2='409' y2='75' class='l'/><rect x='409' y='38' width='99' height='74' rx='8' class='b'/><text x='458' y='68' text-anchor='middle' class='e'>📉</text><text x='458' y='96' text-anchor='middle' class='h'>Monitor</text></svg>"
+   }
+  ],
+  "Components": [
+   {
+    "t": "table",
+    "h": "Core Components",
+    "cols": [
+     "Component",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "t family",
+      "Burstable and cheap, for small apps"
+     ],
+     [
+      "m family",
+      "Balanced CPU and memory"
+     ],
+     [
+      "c family",
+      "High CPU for compute jobs"
+     ],
+     [
+      "r family",
+      "High memory for databases and caches"
+     ],
+     [
+      "On-Demand",
+      "Pay per second, no commitment"
+     ],
+     [
+      "Savings Plans",
+      "1 or 3 year commitment, up to about 72% off"
+     ],
+     [
+      "Spot",
+      "Spare capacity, up to about 90% off, can be stopped with 2 min notice"
+     ],
+     [
+      "Dedicated Host",
+      "A whole physical server for licences"
+     ]
+    ]
+   }
+  ],
+  "Practical": [
+   {
+    "t": "steps",
+    "h": "AWS Console Walkthrough (Hands-on)",
+    "items": [
+     "Open EC2 > Instance Types",
+     "Filter by vCPU and memory",
+     "Compare t3.micro and m5.large",
+     "Open the AWS Pricing Calculator",
+     "Add one instance and compare On-Demand with a 1-year plan",
+     "In Launch instance > Advanced details, look at the Spot option"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "code",
+    "h": "Commands / Script for this practice",
+    "code": [
+     "# Compare sizes",
+     "aws ec2 describe-instance-types --instance-types t3.micro m5.large --query 'InstanceTypes[].[InstanceType,VCpuInfo.DefaultVCpus,MemoryInfo.SizeInMiB]'"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Clean Up",
+    "p": "Terminate or delete everything you created after practice to avoid charges."
+   }
+  ],
+  "Security": [
+   {
+    "t": "list",
+    "h": "Security Best Practices",
+    "items": [
+     "Spot data must be safe to lose",
+     "Tag instances for cost tracking",
+     "Set Budgets alerts",
+     "Do not size for peak only"
+    ],
+    "w": "full"
+   }
+  ],
+  "Examples": [
+   {
+    "h": "Example 1: Steady load",
+    "p": "use a Savings Plan."
+   },
+   {
+    "h": "Example 2: Unpredictable load",
+    "p": "On-Demand with Auto Scaling."
+   },
+   {
+    "h": "Example 3: Fault-tolerant batch jobs",
+    "p": "use Spot."
+   },
+   {
+    "h": "Example 4: Licence-bound software",
+    "p": "use a Dedicated Host."
+   }
+  ],
+  "CLI Commands": [
+   {
+    "t": "code",
+    "h": "AWS CLI Commands",
+    "code": [
+     "aws ec2 describe-instance-types --instance-types t3.micro",
+     "aws ec2 describe-spot-price-history --instance-types t3.micro --product-descriptions Linux/UNIX --max-items 3"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Note",
+    "p": "IDs like i-0abc123 and sg-0abc123 are examples. Replace them with your real IDs."
+   }
+  ],
+  "Interview Qs": [
+   {
+    "t": "qa",
+    "h": "Interview Questions (with Answers)",
+    "items": [
+     [
+      "What does the t3 type mean?",
+      "T is burstable. It earns CPU credits when idle and spends them when busy."
+     ],
+     [
+      "When to use Spot?",
+      "For fault-tolerant, flexible work such as batch jobs, not for databases."
+     ],
+     [
+      "Savings Plan vs Reserved Instance?",
+      "Both are commitments. Savings Plans are more flexible across instance families."
+     ],
+     [
+      "How do you cut EC2 cost?",
+      "Right-size, Savings Plans, Spot for flexible work, stop idle instances, use Auto Scaling."
+     ],
+     [
+      "What is a Dedicated Host?",
+      "A physical server for your use only, often for per-socket licences."
+     ]
+    ]
+   }
+  ],
+  "Cheat Sheet": [
+   {
+    "t": "list",
+    "h": "Quick Facts",
+    "items": [
+     "t, m = general",
+     "c = compute",
+     "r = memory",
+     "On-Demand = flexible",
+     "Savings Plan = steady load",
+     "Spot = cheap but can stop"
+    ]
+   },
+   {
+    "t": "list",
+    "h": "Common Mistakes",
+    "items": [
+     "Choosing too big a size",
+     "Spot for critical servers",
+     "No commitment for steady load",
+     "Ignoring burst credits on t types",
+     "No cost tags"
+    ]
+   },
+   {
+    "h": "Remember Trick",
+    "p": "<b>T = Tiny burst • M = Middle • C = CPU • R = RAM</b>"
+   }
+  ]
+ }
+}

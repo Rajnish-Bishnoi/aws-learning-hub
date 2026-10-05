@@ -1,0 +1,272 @@
+{
+ "icon": "🖥",
+ "sub": "Templates, login keys and boot scripts.",
+ "tabs": {
+  "Overview": [
+   {
+    "h": "1. Service Details",
+    "c": "blue",
+    "p": "An AMI is a template with the OS and software used to launch instances. A key pair gives secure SSH login. User data is a script that runs the first time the instance boots."
+   },
+   {
+    "h": "2. Easy Explanation",
+    "c": "green",
+    "p": "AMI = a ready photocopy of a computer. Key pair = the key to open it. User data = a to-do note it follows on first boot."
+   },
+   {
+    "h": "3. Real Company Scenario",
+    "c": "orange",
+    "p": "A team bakes a custom AMI with its app installed, so every new server in Auto Scaling starts identical and ready."
+   },
+   {
+    "t": "list",
+    "h": "4. Key Benefits",
+    "c": "red",
+    "items": [
+     "Identical servers every time",
+     "Faster launches",
+     "Safe passwordless login",
+     "Automatic setup with scripts"
+    ]
+   },
+   {
+    "ref": "Practical.0",
+    "h": "5. Practical - AWS Console Walkthrough",
+    "c": "green",
+    "w": "full"
+   },
+   {
+    "ref": "Cheat Sheet.1",
+    "h": "8. Common Mistakes",
+    "c": "orange"
+   },
+   {
+    "h": "9. Remember Trick",
+    "c": "red",
+    "p": "<b>AMI = Template • Key = Login • User data = Boot script</b>"
+   },
+   {
+    "ref": "Architecture.1",
+    "h": "How It Works",
+    "c": "white",
+    "r": 1
+   },
+   {
+    "ref": "Architecture.0",
+    "h": "6. Flow / Shortcut",
+    "c": "orange",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Architecture.2",
+    "h": "7. Architecture Diagram",
+    "c": "purple",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Cheat Sheet.0",
+    "h": "10. Cheat Sheet",
+    "c": "blue",
+    "r": 1
+   }
+  ],
+  "Architecture": [
+   {
+    "t": "flow",
+    "h": "Flow / Request Journey",
+    "items": [
+     "📀 AMI",
+     "🔑 Key Pair",
+     "📜 User Data",
+     "🖥 Instance"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "steps",
+    "h": "How It Works",
+    "items": [
+     "Pick an AMI (AWS, Marketplace or your own)",
+     "Select or create a key pair",
+     "Add a user data script (optional)",
+     "Launch the instance",
+     "User data runs once at first boot"
+    ]
+   },
+   {
+    "t": "svg",
+    "h": "Architecture Diagram",
+    "c": "purple",
+    "w": "full",
+    "svg": "<svg class='dg' viewBox='0 0 520 150' role='img'><defs><marker id='a' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#1d6fe0'/></marker></defs><rect x='3' y='8' width='514' height='134' rx='10' class='d'/><rect x='10' y='38' width='99' height='74' rx='8' class='b'/><text x='59' y='68' text-anchor='middle' class='e'>📀</text><text x='59' y='96' text-anchor='middle' class='h'>AMI</text><line x1='109' y1='75' x2='143' y2='75' class='l'/><rect x='143' y='38' width='99' height='74' rx='8' class='b'/><text x='192' y='68' text-anchor='middle' class='e'>🔑</text><text x='192' y='96' text-anchor='middle' class='h'>Key Pair</text><line x1='242' y1='75' x2='276' y2='75' class='l'/><rect x='276' y='38' width='99' height='74' rx='8' class='b'/><text x='325' y='68' text-anchor='middle' class='e'>📜</text><text x='325' y='96' text-anchor='middle' class='h'>User Data</text><line x1='375' y1='75' x2='409' y2='75' class='l'/><rect x='409' y='38' width='99' height='74' rx='8' class='b'/><text x='458' y='68' text-anchor='middle' class='e'>🖥</text><text x='458' y='96' text-anchor='middle' class='h'>Instance</text></svg>"
+   }
+  ],
+  "Components": [
+   {
+    "t": "table",
+    "h": "Core Components",
+    "cols": [
+     "Component",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "AMI",
+      "Template: OS, software and volume snapshots"
+     ],
+     [
+      "Key pair",
+      "Public key on the instance, private .pem file with you"
+     ],
+     [
+      "User data",
+      "Script run once as root at first boot"
+     ],
+     [
+      "Custom AMI",
+      "Your own image from a configured instance"
+     ],
+     [
+      "Region",
+      "AMIs are regional, copy them to use elsewhere"
+     ]
+    ]
+   }
+  ],
+  "Practical": [
+   {
+    "t": "steps",
+    "h": "AWS Console Walkthrough (Hands-on)",
+    "items": [
+     "EC2 > Launch instance, choose Amazon Linux",
+     "Create a key pair and download the .pem",
+     "Open Advanced details > User data",
+     "Paste the script below",
+     "Launch and open the public IP in a browser",
+     "Create an image: Actions > Image and templates > Create image"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "code",
+    "h": "Commands / Script for this practice",
+    "code": [
+     "#!/bin/bash",
+     "yum update -y",
+     "yum install -y httpd",
+     "echo '<h1>Hello from EC2</h1>' > /var/www/html/index.html",
+     "systemctl enable --now httpd"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Clean Up",
+    "p": "Terminate or delete everything you created after practice to avoid charges."
+   }
+  ],
+  "Security": [
+   {
+    "t": "list",
+    "h": "Security Best Practices",
+    "items": [
+     "Never put passwords in user data",
+     "Protect the .pem file (chmod 400)",
+     "Share AMIs only with trusted accounts",
+     "Encrypt AMI snapshots",
+     "Delete old unused AMIs"
+    ],
+    "w": "full"
+   }
+  ],
+  "Examples": [
+   {
+    "h": "Example 1: Golden AMI",
+    "p": "a hardened image used by every team."
+   },
+   {
+    "h": "Example 2: Auto Scaling",
+    "p": "new servers start from your AMI."
+   },
+   {
+    "h": "Example 3: Quick setup",
+    "p": "user data installs a web server at launch."
+   }
+  ],
+  "CLI Commands": [
+   {
+    "t": "code",
+    "h": "AWS CLI Commands",
+    "code": [
+     "aws ec2 create-key-pair --key-name my-key --query KeyMaterial --output text > my-key.pem",
+     "chmod 400 my-key.pem",
+     "aws ec2 create-image --instance-id i-0abc123 --name my-app-ami",
+     "aws ec2 describe-images --owners self",
+     "aws ec2 copy-image --source-image-id ami-0abc123 --source-region ap-south-1 --region us-east-1 --name my-app-copy"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Note",
+    "p": "IDs like i-0abc123 and sg-0abc123 are examples. Replace them with your real IDs."
+   }
+  ],
+  "Interview Qs": [
+   {
+    "t": "qa",
+    "h": "Interview Questions (with Answers)",
+    "items": [
+     [
+      "What is an AMI?",
+      "A template with OS, software and settings used to launch instances."
+     ],
+     [
+      "Can you download a lost .pem again?",
+      "No. Create a new key pair or use SSM Session Manager."
+     ],
+     [
+      "When does user data run?",
+      "Once, at first boot, as root."
+     ],
+     [
+      "Are AMIs regional?",
+      "Yes. Copy the AMI to use it in another region."
+     ],
+     [
+      "AMI vs snapshot?",
+      "A snapshot backs up one volume. An AMI wraps snapshots plus launch settings."
+     ]
+    ]
+   }
+  ],
+  "Cheat Sheet": [
+   {
+    "t": "list",
+    "h": "Quick Facts",
+    "items": [
+     "chmod 400 key.pem",
+     "User data runs once",
+     "AMI is regional",
+     "Default user ec2-user (Amazon Linux)",
+     "Ubuntu user is ubuntu"
+    ]
+   },
+   {
+    "t": "list",
+    "h": "Common Mistakes",
+    "items": [
+     "Losing the .pem file",
+     "Wrong .pem permissions",
+     "Secrets in user data",
+     "Forgetting AMIs are regional",
+     "Never cleaning old AMIs"
+    ]
+   },
+   {
+    "h": "Remember Trick",
+    "p": "<b>AMI = Template • Key = Login • User data = Boot script</b>"
+   }
+  ]
+ }
+}

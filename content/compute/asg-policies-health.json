@@ -1,0 +1,286 @@
+{
+ "icon": "📈",
+ "sub": "When to add or remove servers, with an ALB.",
+ "tabs": {
+  "Overview": [
+   {
+    "h": "1. Service Details",
+    "c": "blue",
+    "p": "Scaling policies tell the ASG when to scale: target tracking, step, simple, scheduled or predictive. Health checks (EC2 or ELB) decide which instances to replace. With an ALB, use ELB health checks."
+   },
+   {
+    "h": "2. Easy Explanation",
+    "c": "green",
+    "p": "A thermostat for servers: keep average CPU near 50%. Add servers when hot, remove when cool. A doctor checks each server and replaces sick ones."
+   },
+   {
+    "h": "3. Real Company Scenario",
+    "c": "orange",
+    "p": "A shop keeps CPU near 50% with target tracking. When one server stops answering the ALB health check, the ASG replaces it."
+   },
+   {
+    "t": "list",
+    "h": "4. Key Benefits",
+    "c": "red",
+    "items": [
+     "Fully automatic scaling",
+     "Pay only for needed servers",
+     "Self-healing with ALB checks",
+     "Plan for known peaks"
+    ]
+   },
+   {
+    "ref": "Practical.0",
+    "h": "5. Practical - AWS Console Walkthrough",
+    "c": "green",
+    "w": "full"
+   },
+   {
+    "ref": "Cheat Sheet.1",
+    "h": "8. Common Mistakes",
+    "c": "orange"
+   },
+   {
+    "h": "9. Remember Trick",
+    "c": "red",
+    "p": "<b>Metric > Policy > Scale • Doctor > Replace</b>"
+   },
+   {
+    "ref": "Architecture.1",
+    "h": "How It Works",
+    "c": "white",
+    "r": 1
+   },
+   {
+    "ref": "Architecture.0",
+    "h": "6. Flow / Shortcut",
+    "c": "orange",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Architecture.2",
+    "h": "7. Architecture Diagram",
+    "c": "purple",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Cheat Sheet.0",
+    "h": "10. Cheat Sheet",
+    "c": "blue",
+    "r": 1
+   }
+  ],
+  "Architecture": [
+   {
+    "t": "flow",
+    "h": "Flow / Request Journey",
+    "items": [
+     "📊 Metric",
+     "⚙ Policy",
+     "📈 Scale",
+     "🩺 Health"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "steps",
+    "h": "How It Works",
+    "items": [
+     "CloudWatch collects a metric (CPU, request count)",
+     "A scaling policy compares it with the target",
+     "The ASG adds or removes instances",
+     "The ALB health check tests each target",
+     "Unhealthy instances are replaced"
+    ]
+   },
+   {
+    "t": "svg",
+    "h": "Architecture Diagram",
+    "c": "purple",
+    "w": "full",
+    "svg": "<svg class='dg' viewBox='0 0 520 150' role='img'><defs><marker id='a' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#1d6fe0'/></marker></defs><rect x='3' y='8' width='514' height='134' rx='10' class='d'/><rect x='10' y='38' width='99' height='74' rx='8' class='b'/><text x='59' y='68' text-anchor='middle' class='e'>📊</text><text x='59' y='96' text-anchor='middle' class='h'>Metric</text><line x1='109' y1='75' x2='143' y2='75' class='l'/><rect x='143' y='38' width='99' height='74' rx='8' class='b'/><text x='192' y='68' text-anchor='middle' class='e'>⚙</text><text x='192' y='96' text-anchor='middle' class='h'>Policy</text><line x1='242' y1='75' x2='276' y2='75' class='l'/><rect x='276' y='38' width='99' height='74' rx='8' class='b'/><text x='325' y='68' text-anchor='middle' class='e'>📈</text><text x='325' y='96' text-anchor='middle' class='h'>Scale</text><line x1='375' y1='75' x2='409' y2='75' class='l'/><rect x='409' y='38' width='99' height='74' rx='8' class='b'/><text x='458' y='68' text-anchor='middle' class='e'>🩺</text><text x='458' y='96' text-anchor='middle' class='h'>Health</text></svg>"
+   }
+  ],
+  "Components": [
+   {
+    "t": "table",
+    "h": "Core Components",
+    "cols": [
+     "Component",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "Target tracking",
+      "Keep a metric near a value (e.g. CPU 50%), the simplest"
+     ],
+     [
+      "Step scaling",
+      "Different actions for different alarm sizes"
+     ],
+     [
+      "Simple scaling",
+      "One action then a cooldown (older style)"
+     ],
+     [
+      "Scheduled",
+      "Scale at fixed times"
+     ],
+     [
+      "Predictive",
+      "Uses forecasts to scale ahead"
+     ],
+     [
+      "EC2 health check",
+      "Checks instance status only"
+     ],
+     [
+      "ELB health check",
+      "Checks that the app answers through the ALB"
+     ],
+     [
+      "Grace period",
+      "Wait after launch before checking"
+     ]
+    ]
+   }
+  ],
+  "Practical": [
+   {
+    "t": "steps",
+    "h": "AWS Console Walkthrough (Hands-on)",
+    "items": [
+     "Open your ASG > Automatic scaling > Create policy",
+     "Choose Target tracking, metric Average CPU, target 50",
+     "Attach the ALB target group in Integrations",
+     "Switch Health checks to ELB and set grace period 300 s",
+     "Generate load on one instance (command below)",
+     "Watch the Activity tab for new instances",
+     "Add a Scheduled action to set Desired 4 at 9 AM"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "code",
+    "h": "Commands / Script for this practice",
+    "code": [
+     "sudo yum install -y stress",
+     "stress --cpu 2 --timeout 300",
+     "# Watch scaling activity",
+     "aws autoscaling describe-scaling-activities --auto-scaling-group-name web-asg --max-items 5"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Clean Up",
+    "p": "Terminate or delete everything you created after practice to avoid charges."
+   }
+  ],
+  "Security": [
+   {
+    "t": "list",
+    "h": "Security Best Practices",
+    "items": [
+     "Cap Max size to limit cost",
+     "Use ELB health checks so app failures are caught",
+     "Keep the health check path simple and light (/health)",
+     "Set alarms for scaling failures",
+     "Use private subnets for instances"
+    ],
+    "w": "full"
+   }
+  ],
+  "Examples": [
+   {
+    "h": "Example 1: Sale event",
+    "p": "target tracking at 50% CPU."
+   },
+   {
+    "h": "Example 2: API",
+    "p": "scale on ALB request count per target."
+   },
+   {
+    "h": "Example 3: Office app",
+    "p": "scheduled scale up at 9 AM, down at 7 PM."
+   },
+   {
+    "h": "Example 4: Queue worker",
+    "p": "scale on SQS queue depth."
+   }
+  ],
+  "CLI Commands": [
+   {
+    "t": "code",
+    "h": "AWS CLI Commands",
+    "code": [
+     "aws autoscaling put-scaling-policy --auto-scaling-group-name web-asg --policy-name cpu50 --policy-type TargetTrackingScaling --target-tracking-configuration file://tt.json",
+     "aws autoscaling put-scheduled-update-group-action --auto-scaling-group-name web-asg --scheduled-action-name morning --recurrence '0 9 * * *' --desired-capacity 4",
+     "aws autoscaling update-auto-scaling-group --auto-scaling-group-name web-asg --health-check-type ELB --health-check-grace-period 300"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Note",
+    "p": "IDs like i-0abc123 and sg-0abc123 are examples. Replace them with your real IDs."
+   }
+  ],
+  "Interview Qs": [
+   {
+    "t": "qa",
+    "h": "Interview Questions (with Answers)",
+    "items": [
+     [
+      "Which policy is easiest?",
+      "Target tracking. You pick a metric and a target value and AWS does the rest."
+     ],
+     [
+      "EC2 vs ELB health check?",
+      "EC2 only checks the instance. ELB also checks that the app answers, so use ELB with a load balancer."
+     ],
+     [
+      "What is the grace period?",
+      "Time after launch before health checks start, so the app can boot."
+     ],
+     [
+      "When use scheduled scaling?",
+      "For known patterns such as office hours or planned sales."
+     ],
+     [
+      "How do ASG and ALB work together?",
+      "The ASG registers new instances in the target group, the ALB sends traffic once they are healthy and removes ones that fail."
+     ]
+    ]
+   }
+  ],
+  "Cheat Sheet": [
+   {
+    "t": "list",
+    "h": "Quick Facts",
+    "items": [
+     "Target tracking = simplest",
+     "Step = custom actions",
+     "Scheduled = known times",
+     "ELB health check with ALB",
+     "Grace period = boot time"
+    ]
+   },
+   {
+    "t": "list",
+    "h": "Common Mistakes",
+    "items": [
+     "EC2 health check only (app down not detected)",
+     "Grace period too short",
+     "Scale-in too aggressive",
+     "No max limit",
+     "Instance not in target group"
+    ]
+   },
+   {
+    "h": "Remember Trick",
+    "p": "<b>Metric > Policy > Scale • Doctor > Replace</b>"
+   }
+  ]
+ }
+}
