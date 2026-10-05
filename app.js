@@ -14,11 +14,13 @@ function block(b,i){
   else if(b.t=="table")x=`<div class="tw"><table><tr>${b.cols.map(v=>`<th>${v}</th>`).join("")}</tr>${b.rows.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join("")}</tr>`).join("")}</table></div>`;
   else if(b.t=="code")x=`<pre>${esc(Array.isArray(b.code)?b.code.join("\n"):b.code)}</pre>`;
   else if(b.t=="qa")x=b.items.map(v=>`<details><summary>${v[0]}</summary><p>${v[1]}</p></details>`).join("");
+  else if(b.t=="svg")x=`<div class="tw">${b.svg}</div>`;
   else if(b.t=="flow")x=`<div class="flow">${b.items.map(v=>{const k=v.indexOf(" ");return `<div><b>${v.slice(0,k)}</b>${v.slice(k+1)}</div>`}).join('<span class="arrow">→</span>')}</div>`;
   else x=`<p>${b.p}</p>`;
   return `<section class="c ${c}${full}"><h3>${b.h||""}</h3>${x}</section>`;
 }
 
+function res(b){if(!b.ref)return b;const p=b.ref.split("."),o=Object.assign({},data.tabs[p[0]][+p[1]],b);delete o.ref;return o}
 function nav(){
   const q=$("#q").value.toLowerCase(),h=(location.hash||"").slice(1),tid=h.split("/")[0];
   $("#nav").innerHTML=M.map(t=>{
@@ -44,11 +46,13 @@ function draw(){
   const l=cur,names=Object.keys(data.tabs).concat("My Notes"),k=key(l),L=all(),i=L.findIndex(x=>key(x)==k),pv=L[i-1],nx=L[i+1];
   const body=tab==names.length-1
     ?`<section class="c white full"><h3>📝 My Notes</h3><textarea id="note" placeholder="Write your notes for ${l.title}..."></textarea></section>`
-    :data.tabs[names[tab]].map(block).join("");
+    :data.tabs[names[tab]].map(res).map(block).join("");
+  const ov=names[tab]=="Overview",bl=ov?data.tabs.Overview.map(res):[];
+  const main=ov?`<div class="grid"><div class="l">${bl.filter(b=>!b.r).map(block).join("")}</div><div class="r">${bl.filter(b=>b.r).map(block).join("")}</div></div>`:`<div class="cards">${body}</div>`;
   $("#main").innerHTML=`<div class="crumb">AWS › ${l.topic.name} › ${l.title}</div>
   <div class="top"><div><h1><span style="font-size:42px">${data.icon||l.topic.icon}</span>${l.title}</h1><p class="sub-t">${data.sub||""}</p></div><button class="done" id="done"></button></div>
   <div class="tabs">${names.map((n,j)=>`<button data-i="${j}" class="${j==tab?"on":""}">${n}</button>`).join("")}</div>
-  <div class="cards">${body}</div>
+  ${main}
   <div class="pn">${pv?`<a href="#${key(pv)}">← ${pv.title}</a>`:"<span></span>"}${nx?`<a href="#${key(nx)}">${nx.title} →</a>`:""}</div>`;
   const d=$("#done"),setD=()=>{const v=done.includes(k);d.classList.toggle("on",v);d.textContent=v?"✓ Completed":"✓ Mark as Completed"};setD();
   d.onclick=()=>{done=done.includes(k)?done.filter(x=>x!=k):done.concat(k);ST("done",JSON.stringify(done));setD();nav()};
