@@ -1,0 +1,18 @@
+{"topics":[
+{"id":"basics","name":"Cloud Basics","icon":"☁","lessons":[]},
+{"id":"compute","name":"Compute","icon":"🖥","lessons":[]},
+{"id":"storage","name":"Storage","icon":"🗄","lessons":[
+ {"id":"s3","title":"Amazon S3","file":"storage/s3.json"}]},
+{"id":"networking","name":"Networking & Content Delivery","icon":"🌐","lessons":[
+ {"id":"alb","title":"Application Load Balancer (ALB)","file":"networking/alb.json"}]},
+{"id":"databases","name":"Databases","icon":"🛢","lessons":[]},
+{"id":"security","name":"Security & IAM","icon":"🛡","lessons":[]},
+{"id":"devops","name":"DevOps & Automation","icon":"⚙","lessons":[]},
+{"id":"monitoring","name":"Monitoring & Logging","icon":"📈","lessons":[]},
+{"id":"containers","name":"Containers","icon":"📦","lessons":[]},
+{"id":"serverless","name":"Serverless","icon":"λ","lessons":[]},
+{"id":"analytics","name":"Data & Analytics","icon":"📊","lessons":[]},
+{"id":"ai","name":"AI & ML","icon":"🧠","lessons":[]},
+{"id":"migration","name":"Migration & Hybrid","icon":"🔄","lessons":[]},
+{"id":"governance","name":"Management & Governance","icon":"📋","lessons":[]}
+]}

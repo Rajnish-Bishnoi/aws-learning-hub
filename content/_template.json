@@ -1,0 +1,14 @@
+{"icon":"🔧","sub":"One line about the service","tabs":{
+"Overview":[
+{"h":"What is it?","p":"Plain text card. HTML like <b>bold</b> is allowed."},
+{"t":"list","h":"Key Benefits","items":["Point 1","Point 2"]}],
+"Architecture":[
+{"t":"flow","h":"Flow","items":["👤 Client","⚖ Service","🔲 Target"],"w":"full"},
+{"t":"steps","h":"How it works","items":["Step 1","Step 2"]}],
+"Components":[
+{"t":"table","h":"Table","cols":["Name","Meaning"],"rows":[["A","Does A"],["B","Does B"]]}],
+"CLI Commands":[
+{"t":"code","h":"Commands","code":["aws service command"]}],
+"Interview Qs":[
+{"t":"qa","h":"Questions","items":[["Question?","Answer."]]}]
+}}

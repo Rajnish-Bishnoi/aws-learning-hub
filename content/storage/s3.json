@@ -1,0 +1,31 @@
+{"icon":"🪣","sub":"Object storage for any file, with 11 nines durability","tabs":{
+"Overview":[
+{"h":"1. What is S3?","p":"Amazon S3 (Simple Storage Service) stores files as objects inside buckets. It is highly durable (99.999999999%), scales without limit and you pay only for what you store and transfer."},
+{"h":"2. Easy Explanation","p":"A huge online locker. Each file gets its own link. You decide who can open it, and you never worry about disk space."},
+{"h":"3. Real Company Scenario","p":"A news site keeps all images and videos in S3, serves them through CloudFront, and moves old articles to Glacier to save cost."},
+{"t":"list","h":"4. Key Benefits","items":["Almost unlimited storage","11 nines durability","Cheap storage classes","Versioning and lifecycle rules","Static website hosting","Works with Lambda, CloudFront, Athena and more"]}],
+"Components":[
+{"t":"table","h":"Core Concepts","cols":["Concept","Meaning"],"rows":[["Bucket","Container for objects. Name is globally unique, data lives in one region"],["Object","A file (data) plus a key (name) and metadata. Max 5 TB"],["Key","Full name of the object, e.g. images/logo.png"],["Prefix","Folder-like part of the key (S3 has no real folders)"],["Region","Where the bucket data is stored"],["Storage class","Price vs access speed choice"]]},
+{"t":"table","h":"Storage Classes","cols":["Class","Use for"],"rows":[["Standard","Frequent access"],["Intelligent-Tiering","Unknown or changing access (auto moves)"],["Standard-IA","Rare access, quick retrieval (30 day minimum)"],["One Zone-IA","Rare access, single AZ, lower cost"],["Glacier Instant / Flexible","Archive, retrieval in ms to hours"],["Glacier Deep Archive","Long-term archive, cheapest, hours to restore"]]},
+{"t":"list","h":"Useful Features","items":["Versioning: undo deletes and overwrites","Lifecycle rules: auto move or delete old data","Replication: copy to another bucket or region","Event notifications: trigger Lambda or SQS","Transfer Acceleration: faster uploads over long distance"]}],
+"Practical":[
+{"t":"steps","h":"Console Walkthrough","items":["S3 > Create bucket","Enter a globally unique name and choose region","Keep Block Public Access ON","Enable Bucket Versioning","Create bucket and open it","Upload a file","Open the object and try its URL (you will get Access Denied, which is correct)","Create a presigned URL to share it for a short time","Add a Lifecycle rule: move to Standard-IA after 30 days","Delete objects and the bucket after practice"]},
+{"t":"steps","h":"Host a Static Website","items":["Upload index.html and error.html","Properties > Static website hosting > Enable","Set index document to index.html","Turn off Block Public Access for this bucket only","Add a public-read bucket policy","Open the website endpoint (HTTP only; use CloudFront for HTTPS)"]}],
+"Security":[
+{"t":"list","h":"Access Control","items":["Keep Block Public Access ON by default","Use IAM policies for users and roles","Use bucket policies for bucket-wide rules","Avoid ACLs (legacy)","Use presigned URLs for temporary sharing"]},
+{"t":"list","h":"Encryption and Protection","items":["Encryption at rest: SSE-S3 (default), SSE-KMS, SSE-C","Encryption in transit: force HTTPS in the bucket policy","Versioning plus MFA Delete for important data","Enable server access logs or CloudTrail data events","Use VPC Gateway Endpoint so traffic stays inside AWS"]}],
+"CLI Commands":[
+{"t":"code","h":"Common S3 Commands","w":"full","code":["# Create a bucket","aws s3 mb s3://my-unique-bucket-123","","# Upload and download","aws s3 cp notes.txt s3://my-unique-bucket-123/","aws s3 cp s3://my-unique-bucket-123/notes.txt ./notes.txt","","# List objects","aws s3 ls s3://my-unique-bucket-123","","# Sync a folder","aws s3 sync ./site s3://my-unique-bucket-123","","# Enable versioning","aws s3api put-bucket-versioning --bucket my-unique-bucket-123 --versioning-configuration Status=Enabled","","# Presigned URL (1 hour)","aws s3 presign s3://my-unique-bucket-123/notes.txt --expires-in 3600","","# Delete everything and the bucket","aws s3 rb s3://my-unique-bucket-123 --force"]}],
+"Interview Qs":[
+{"t":"qa","h":"Interview Questions (with Answers)","items":[
+["What is S3 and how is it different from EBS?","S3 is object storage accessed over HTTP. EBS is a block disk attached to one EC2 instance."],
+["What does 11 nines durability mean?","99.999999999% durability: the chance of losing an object is extremely small because data is stored across multiple AZs."],
+["How do you make an S3 bucket private?","Keep Block Public Access on, use IAM or bucket policies, and avoid public ACLs."],
+["What is versioning?","It keeps every version of an object so you can restore after an overwrite or delete."],
+["Which storage class for rarely used data?","Standard-IA or Glacier depending on how fast you need it back. Use lifecycle rules to move automatically."],
+["Can S3 host a website?","Yes, static sites only. Use CloudFront in front for HTTPS."],
+["What is a presigned URL?","A temporary link that gives time-limited access to a private object."]]}],
+"Cheat Sheet":[
+{"t":"list","h":"Quick Facts","items":["Bucket names are globally unique","Max object size 5 TB, single PUT up to 5 GB","Use multipart upload for large files","Strong read-after-write consistency","S3 is regional, bucket names are global"]},
+{"t":"list","h":"Common Mistakes","items":["Making buckets public by mistake","No lifecycle rules, so cost keeps growing","Using S3 as a database or a disk","Forgetting that versions are billed too","No encryption or logging for sensitive data"]}]
+}}
