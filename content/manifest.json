@@ -1,18 +1,146 @@
-{"topics":[
-{"id":"basics","name":"Cloud Basics","icon":"☁","lessons":[]},
-{"id":"compute","name":"Compute","icon":"🖥","lessons":[]},
-{"id":"storage","name":"Storage","icon":"🗄","lessons":[
- {"id":"s3","title":"Amazon S3","file":"storage/s3.json"}]},
-{"id":"networking","name":"Networking & Content Delivery","icon":"🌐","lessons":[
- {"id":"alb","title":"Application Load Balancer (ALB)","file":"networking/alb.json"}]},
-{"id":"databases","name":"Databases","icon":"🛢","lessons":[]},
-{"id":"security","name":"Security & IAM","icon":"🛡","lessons":[]},
-{"id":"devops","name":"DevOps & Automation","icon":"⚙","lessons":[]},
-{"id":"monitoring","name":"Monitoring & Logging","icon":"📈","lessons":[]},
-{"id":"containers","name":"Containers","icon":"📦","lessons":[]},
-{"id":"serverless","name":"Serverless","icon":"λ","lessons":[]},
-{"id":"analytics","name":"Data & Analytics","icon":"📊","lessons":[]},
-{"id":"ai","name":"AI & ML","icon":"🧠","lessons":[]},
-{"id":"migration","name":"Migration & Hybrid","icon":"🔄","lessons":[]},
-{"id":"governance","name":"Management & Governance","icon":"📋","lessons":[]}
-]}
+{
+ "topics": [
+  {
+   "id": "basics",
+   "name": "Cloud Basics",
+   "icon": "☁",
+   "lessons": []
+  },
+  {
+   "id": "compute",
+   "name": "Compute",
+   "icon": "🖥",
+   "lessons": [
+    {
+     "id": "ec2-basics",
+     "title": "EC2 Basics",
+     "file": "compute/ec2-basics.json"
+    },
+    {
+     "id": "ec2-pricing",
+     "title": "Instance Types & Pricing",
+     "file": "compute/ec2-pricing.json"
+    },
+    {
+     "id": "ec2-ami-keys",
+     "title": "AMI, Key Pairs & User Data",
+     "file": "compute/ec2-ami-keys.json"
+    },
+    {
+     "id": "ec2-security-groups",
+     "title": "Security Groups",
+     "file": "compute/ec2-security-groups.json"
+    },
+    {
+     "id": "ec2-eip-placement",
+     "title": "Elastic IP & Placement Groups",
+     "file": "compute/ec2-eip-placement.json"
+    },
+    {
+     "id": "ec2-storage",
+     "title": "Storage for EC2",
+     "file": "compute/ec2-storage.json"
+    },
+    {
+     "id": "asg-launch-templates",
+     "title": "Launch Templates",
+     "file": "compute/asg-launch-templates.json"
+    },
+    {
+     "id": "asg-groups",
+     "title": "Auto Scaling Groups",
+     "file": "compute/asg-groups.json"
+    },
+    {
+     "id": "asg-policies-health",
+     "title": "Scaling Policies & Health Checks",
+     "file": "compute/asg-policies-health.json"
+    }
+   ]
+  },
+  {
+   "id": "storage",
+   "name": "Storage",
+   "icon": "🗄",
+   "lessons": [
+    {
+     "id": "s3",
+     "title": "Amazon S3",
+     "file": "storage/s3.json"
+    }
+   ]
+  },
+  {
+   "id": "networking",
+   "name": "Networking & Content Delivery",
+   "icon": "🌐",
+   "lessons": [
+    {
+     "id": "alb",
+     "title": "Application Load Balancer (ALB)",
+     "file": "networking/alb.json"
+    }
+   ]
+  },
+  {
+   "id": "databases",
+   "name": "Databases",
+   "icon": "🛢",
+   "lessons": []
+  },
+  {
+   "id": "security",
+   "name": "Security & IAM",
+   "icon": "🛡",
+   "lessons": []
+  },
+  {
+   "id": "devops",
+   "name": "DevOps & Automation",
+   "icon": "⚙",
+   "lessons": []
+  },
+  {
+   "id": "monitoring",
+   "name": "Monitoring & Logging",
+   "icon": "📈",
+   "lessons": []
+  },
+  {
+   "id": "containers",
+   "name": "Containers",
+   "icon": "📦",
+   "lessons": []
+  },
+  {
+   "id": "serverless",
+   "name": "Serverless",
+   "icon": "λ",
+   "lessons": []
+  },
+  {
+   "id": "analytics",
+   "name": "Data & Analytics",
+   "icon": "📊",
+   "lessons": []
+  },
+  {
+   "id": "ai",
+   "name": "AI & ML",
+   "icon": "🧠",
+   "lessons": []
+  },
+  {
+   "id": "migration",
+   "name": "Migration & Hybrid",
+   "icon": "🔄",
+   "lessons": []
+  },
+  {
+   "id": "governance",
+   "name": "Management & Governance",
+   "icon": "📋",
+   "lessons": []
+  }
+ ]
+}

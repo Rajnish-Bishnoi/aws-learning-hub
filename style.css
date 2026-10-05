@@ -78,3 +78,4 @@ nav a.sub{padding-left:44px}
 .dg{width:100%;height:auto;display:block}.dg text{fill:var(--tx);font:12px system-ui,sans-serif}.dg .s{font-size:10.5px;fill:var(--mut)}.dg .h{font-weight:700}
 .dg .b{fill:var(--card);stroke:var(--acc);stroke-width:1.5}.dg .o{fill:#fff3e0;stroke:#f59a23;stroke-width:1.5}.dg .o+text,.dg .o~text{}.dg .g{fill:rgba(46,160,90,.12);stroke:#2ea05a;stroke-width:1.2}
 .dg .d{fill:none;stroke:var(--mut);stroke-width:1.5;stroke-dasharray:6 4}.dg .od{fill:none;stroke:#f59a23;stroke-width:1.5;stroke-dasharray:6 4}.dg .l{stroke:var(--acc);stroke-width:2;fill:none;marker-end:url(#a)}
+.dg .e{font-size:26px}
