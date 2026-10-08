@@ -67,6 +67,66 @@
      "id": "s3",
      "title": "Amazon S3",
      "file": "storage/s3.json"
+    },
+    {
+     "id": "s3-fundamentals",
+     "title": "S3 Fundamentals",
+     "file": "storage/s3-fundamentals.json"
+    },
+    {
+     "id": "s3-core-components",
+     "title": "S3 Core Components",
+     "file": "storage/s3-core-components.json"
+    },
+    {
+     "id": "s3-buckets",
+     "title": "S3 Buckets",
+     "file": "storage/s3-buckets.json"
+    },
+    {
+     "id": "s3-objects",
+     "title": "S3 Objects",
+     "file": "storage/s3-objects.json"
+    },
+    {
+     "id": "s3-operations",
+     "title": "S3 Object Operations",
+     "file": "storage/s3-operations.json"
+    },
+    {
+     "id": "s3-storage-classes",
+     "title": "S3 Storage Classes",
+     "file": "storage/s3-storage-classes.json"
+    },
+    {
+     "id": "s3-versioning",
+     "title": "S3 Versioning",
+     "file": "storage/s3-versioning.json"
+    },
+    {
+     "id": "s3-lifecycle",
+     "title": "S3 Lifecycle Management",
+     "file": "storage/s3-lifecycle.json"
+    },
+    {
+     "id": "s3-security-fundamentals",
+     "title": "S3 Security Fundamentals",
+     "file": "storage/s3-security-fundamentals.json"
+    },
+    {
+     "id": "s3-iam-access",
+     "title": "S3 IAM Access",
+     "file": "storage/s3-iam-access.json"
+    },
+    {
+     "id": "s3-bucket-policies",
+     "title": "S3 Bucket Policies",
+     "file": "storage/s3-bucket-policies.json"
+    },
+    {
+     "id": "s3-block-public-access",
+     "title": "S3 Block Public Access",
+     "file": "storage/s3-block-public-access.json"
     }
    ]
   },
