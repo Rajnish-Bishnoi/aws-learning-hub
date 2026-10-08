@@ -1,0 +1,249 @@
+{
+ "icon": "🪣",
+ "sub": "Auto-move and auto-delete objects.",
+ "tabs": {
+  "Overview": [
+   {
+    "h": "1. Service Details",
+    "c": "blue",
+    "p": "Lifecycle rules automatically move objects to cheaper storage classes or delete them after a number of days."
+   },
+   {
+    "h": "2. Easy Explanation",
+    "c": "green",
+    "p": "A clean-up robot that moves old files to cheaper shelves and bins the very old ones."
+   },
+   {
+    "h": "3. Real Company Scenario",
+    "c": "orange",
+    "p": "Logs stay in Standard for 30 days, move to Glacier at 90 days, and are deleted after 1 year."
+   },
+   {
+    "t": "list",
+    "h": "4. Key Benefits",
+    "c": "red",
+    "items": [
+     "Automatic cost saving",
+     "No manual work",
+     "Cleans old versions",
+     "Applies by prefix or tag"
+    ]
+   },
+   {
+    "ref": "Practical.0",
+    "h": "5. Practical - AWS Console Walkthrough",
+    "c": "green",
+    "w": "full"
+   },
+   {
+    "ref": "Cheat Sheet.1",
+    "h": "8. Common Mistakes",
+    "c": "orange"
+   },
+   {
+    "h": "9. Remember Trick",
+    "c": "red",
+    "p": "<b>Move down • Delete old</b>"
+   },
+   {
+    "ref": "Architecture.1",
+    "h": "How It Works",
+    "c": "white",
+    "r": 1
+   },
+   {
+    "ref": "Architecture.0",
+    "h": "6. Flow / Shortcut",
+    "c": "orange",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Architecture.2",
+    "h": "7. Architecture Diagram",
+    "c": "purple",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Cheat Sheet.0",
+    "h": "10. Cheat Sheet",
+    "c": "blue",
+    "r": 1
+   }
+  ],
+  "Architecture": [
+   {
+    "t": "flow",
+    "h": "Flow / Request Journey",
+    "items": [
+     "📅 Day 0",
+     "🌤 Day 30",
+     "❄ Day 90",
+     "🗑 Expire"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "steps",
+    "h": "How It Works",
+    "items": [
+     "Create a rule with a prefix or tag filter",
+     "Add a transition action (e.g. 30 days to IA)",
+     "Add an expiration action",
+     "S3 runs the rules daily",
+     "Objects move or are deleted"
+    ]
+   },
+   {
+    "t": "svg",
+    "h": "Architecture Diagram",
+    "c": "purple",
+    "w": "full",
+    "svg": "<svg class='dg' viewBox='0 0 520 150' role='img'><defs><marker id='a' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#1d6fe0'/></marker></defs><rect x='3' y='8' width='514' height='134' rx='10' class='d'/><rect x='10' y='38' width='99' height='74' rx='8' class='b'/><text x='59' y='68' text-anchor='middle' class='e'>📅</text><text x='59' y='96' text-anchor='middle' class='h'>Day 0</text><line x1='109' y1='75' x2='143' y2='75' class='l'/><rect x='143' y='38' width='99' height='74' rx='8' class='b'/><text x='192' y='68' text-anchor='middle' class='e'>🌤</text><text x='192' y='96' text-anchor='middle' class='h'>Day 30</text><line x1='242' y1='75' x2='276' y2='75' class='l'/><rect x='276' y='38' width='99' height='74' rx='8' class='b'/><text x='325' y='68' text-anchor='middle' class='e'>❄</text><text x='325' y='96' text-anchor='middle' class='h'>Day 90</text><line x1='375' y1='75' x2='409' y2='75' class='l'/><rect x='409' y='38' width='99' height='74' rx='8' class='b'/><text x='458' y='68' text-anchor='middle' class='e'>🗑</text><text x='458' y='96' text-anchor='middle' class='h'>Expire</text></svg>"
+   }
+  ],
+  "Components": [
+   {
+    "t": "table",
+    "h": "Core Components",
+    "cols": [
+     "Component",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "Transition",
+      "Move to another class after N days"
+     ],
+     [
+      "Expiration",
+      "Delete after N days"
+     ],
+     [
+      "Noncurrent version rules",
+      "Handle old versions"
+     ],
+     [
+      "Abort incomplete multipart",
+      "Clean failed uploads"
+     ],
+     [
+      "Filter",
+      "Prefix, tags or size"
+     ]
+    ]
+   }
+  ],
+  "Practical": [
+   {
+    "t": "steps",
+    "h": "AWS Console Walkthrough (Hands-on)",
+    "items": [
+     "Open bucket > Management > Create lifecycle rule",
+     "Name it logs-rule and filter the prefix logs/",
+     "Move to Standard-IA after 30 days",
+     "Move to Glacier Flexible after 90 days",
+     "Expire after 365 days",
+     "Save and review"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "code",
+    "h": "Commands / Script for this practice",
+    "code": [
+     "aws s3api put-bucket-lifecycle-configuration --bucket company-demo-123 --lifecycle-configuration file://lifecycle.json",
+     "aws s3api get-bucket-lifecycle-configuration --bucket company-demo-123"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Clean Up",
+    "p": "Terminate or delete everything you created after practice to avoid charges."
+   }
+  ],
+  "Security": [
+   {
+    "t": "list",
+    "h": "Security Best Practices",
+    "items": [
+     "Test rules on a small prefix first",
+     "Avoid deleting data needed for audits",
+     "Use versioning with expiration rules"
+    ],
+    "w": "full"
+   }
+  ],
+  "Examples": [
+   {
+    "h": "Example 1: Logs",
+    "p": "age them out."
+   },
+   {
+    "h": "Example 2: Backups",
+    "p": "keep 30 days hot, then archive."
+   }
+  ],
+  "CLI Commands": [
+   {
+    "t": "code",
+    "h": "AWS CLI Commands",
+    "code": [
+     "aws s3api get-bucket-lifecycle-configuration --bucket company-demo-123",
+     "aws s3api delete-bucket-lifecycle --bucket company-demo-123"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Note",
+    "p": "IDs like i-0abc123 and sg-0abc123 are examples. Replace them with your real IDs."
+   }
+  ],
+  "Interview Qs": [
+   {
+    "t": "qa",
+    "h": "Interview Questions (with Answers)",
+    "items": [
+     [
+      "Minimum days to move to IA?",
+      "30 days."
+     ],
+     [
+      "Does lifecycle delete versions?",
+      "Yes, with noncurrent version expiration rules."
+     ],
+     [
+      "When does a rule run?",
+      "S3 evaluates rules once per day."
+     ]
+    ]
+   }
+  ],
+  "Cheat Sheet": [
+   {
+    "t": "list",
+    "h": "Quick Facts",
+    "items": [
+     "Transition and Expiration",
+     "30 days minimum for IA",
+     "Filter by prefix or tag",
+     "Add an abort-multipart rule"
+    ]
+   },
+   {
+    "t": "list",
+    "h": "Common Mistakes",
+    "items": [
+     "Rule on the whole bucket by mistake",
+     "No version rule",
+     "Deleting audit data"
+    ]
+   },
+   {
+    "h": "Remember Trick",
+    "p": "<b>Move down • Delete old</b>"
+   }
+  ]
+ }
+}

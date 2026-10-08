@@ -1,0 +1,261 @@
+{
+ "icon": "🪣",
+ "sub": "Resource-based rules on a bucket.",
+ "tabs": {
+  "Overview": [
+   {
+    "h": "1. Service Details",
+    "c": "blue",
+    "p": "A bucket policy is a JSON resource policy attached to a bucket. It can grant or deny access to accounts, roles, services or the public."
+   },
+   {
+    "h": "2. Easy Explanation",
+    "c": "green",
+    "p": "House rules written on the locker door."
+   },
+   {
+    "h": "3. Real Company Scenario",
+    "c": "orange",
+    "p": "A policy denies any request that is not over HTTPS and allows one partner account read access."
+   },
+   {
+    "t": "list",
+    "h": "4. Key Benefits",
+    "c": "red",
+    "items": [
+     "Bucket-wide rules",
+     "Cross-account access",
+     "Enforce HTTPS or encryption",
+     "Conditions on IP or VPC"
+    ]
+   },
+   {
+    "ref": "Practical.0",
+    "h": "5. Practical - AWS Console Walkthrough",
+    "c": "green",
+    "w": "full"
+   },
+   {
+    "ref": "Cheat Sheet.1",
+    "h": "8. Common Mistakes",
+    "c": "orange"
+   },
+   {
+    "h": "9. Remember Trick",
+    "c": "red",
+    "p": "<b>Principal + Action + Resource</b>"
+   },
+   {
+    "ref": "Architecture.1",
+    "h": "How It Works",
+    "c": "white",
+    "r": 1
+   },
+   {
+    "ref": "Architecture.0",
+    "h": "6. Flow / Shortcut",
+    "c": "orange",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Architecture.2",
+    "h": "7. Architecture Diagram",
+    "c": "purple",
+    "r": 1,
+    "w": ""
+   },
+   {
+    "ref": "Cheat Sheet.0",
+    "h": "10. Cheat Sheet",
+    "c": "blue",
+    "r": 1
+   }
+  ],
+  "Architecture": [
+   {
+    "t": "flow",
+    "h": "Flow / Request Journey",
+    "items": [
+     "📜 Policy",
+     "🪣 Bucket",
+     "✅ Allow",
+     "⛔ Deny"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "steps",
+    "h": "How It Works",
+    "items": [
+     "Write a JSON policy",
+     "Attach it to the bucket",
+     "S3 evaluates it with IAM policies",
+     "Explicit deny wins",
+     "The result is allow or deny"
+    ]
+   },
+   {
+    "t": "svg",
+    "h": "Architecture Diagram",
+    "c": "purple",
+    "w": "full",
+    "svg": "<svg class='dg' viewBox='0 0 520 150' role='img'><defs><marker id='a' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#1d6fe0'/></marker></defs><rect x='3' y='8' width='514' height='134' rx='10' class='d'/><rect x='10' y='38' width='99' height='74' rx='8' class='b'/><text x='59' y='68' text-anchor='middle' class='e'>📜</text><text x='59' y='96' text-anchor='middle' class='h'>Policy</text><line x1='109' y1='75' x2='143' y2='75' class='l'/><rect x='143' y='38' width='99' height='74' rx='8' class='b'/><text x='192' y='68' text-anchor='middle' class='e'>🪣</text><text x='192' y='96' text-anchor='middle' class='h'>Bucket</text><line x1='242' y1='75' x2='276' y2='75' class='l'/><rect x='276' y='38' width='99' height='74' rx='8' class='b'/><text x='325' y='68' text-anchor='middle' class='e'>✅</text><text x='325' y='96' text-anchor='middle' class='h'>Allow</text><line x1='375' y1='75' x2='409' y2='75' class='l'/><rect x='409' y='38' width='99' height='74' rx='8' class='b'/><text x='458' y='68' text-anchor='middle' class='e'>⛔</text><text x='458' y='96' text-anchor='middle' class='h'>Deny</text></svg>"
+   }
+  ],
+  "Components": [
+   {
+    "t": "table",
+    "h": "Core Components",
+    "cols": [
+     "Component",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "Principal",
+      "Who the policy applies to"
+     ],
+     [
+      "Action",
+      "Allowed or denied S3 actions"
+     ],
+     [
+      "Resource",
+      "Bucket and object ARNs"
+     ],
+     [
+      "Effect",
+      "Allow or Deny"
+     ],
+     [
+      "Condition",
+      "Optional extra checks"
+     ]
+    ]
+   }
+  ],
+  "Practical": [
+   {
+    "t": "steps",
+    "h": "AWS Console Walkthrough (Hands-on)",
+    "items": [
+     "Open bucket > Permissions > Bucket policy",
+     "Paste the policy below (deny non-HTTPS)",
+     "Save",
+     "Try an HTTP request (it should fail)",
+     "Review with IAM Access Analyzer"
+    ],
+    "w": "full"
+   },
+   {
+    "t": "code",
+    "h": "Commands / Script for this practice",
+    "code": [
+     "{",
+     " \"Version\": \"2012-10-17\",",
+     " \"Statement\": [{",
+     "  \"Effect\": \"Deny\",",
+     "  \"Principal\": \"*\",",
+     "  \"Action\": \"s3:*\",",
+     "  \"Resource\": [\"arn:aws:s3:::company-demo-123\", \"arn:aws:s3:::company-demo-123/*\"],",
+     "  \"Condition\": {\"Bool\": {\"aws:SecureTransport\": \"false\"}}",
+     " }]",
+     "}"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Clean Up",
+    "p": "Terminate or delete everything you created after practice to avoid charges."
+   }
+  ],
+  "Security": [
+   {
+    "t": "list",
+    "h": "Security Best Practices",
+    "items": [
+     "Avoid Principal * with Allow",
+     "Test with Access Analyzer",
+     "Keep policies small and clear"
+    ],
+    "w": "full"
+   }
+  ],
+  "Examples": [
+   {
+    "h": "Example 1: Example 1",
+    "p": "Force HTTPS."
+   },
+   {
+    "h": "Example 2: Example 2",
+    "p": "Allow CloudFront to read objects."
+   },
+   {
+    "h": "Example 3: Example 3",
+    "p": "Share with another AWS account."
+   }
+  ],
+  "CLI Commands": [
+   {
+    "t": "code",
+    "h": "AWS CLI Commands",
+    "code": [
+     "aws s3api put-bucket-policy --bucket company-demo-123 --policy file://policy.json",
+     "aws s3api get-bucket-policy --bucket company-demo-123",
+     "aws s3api delete-bucket-policy --bucket company-demo-123"
+    ],
+    "w": "full"
+   },
+   {
+    "h": "Note",
+    "p": "IDs like i-0abc123 and sg-0abc123 are examples. Replace them with your real IDs."
+   }
+  ],
+  "Interview Qs": [
+   {
+    "t": "qa",
+    "h": "Interview Questions (with Answers)",
+    "items": [
+     [
+      "Max bucket policy size?",
+      "20 KB."
+     ],
+     [
+      "Can a bucket policy allow another account?",
+      "Yes, by naming the account or role as Principal."
+     ],
+     [
+      "IAM allows but the bucket policy denies?",
+      "Access is denied. Explicit deny wins."
+     ]
+    ]
+   }
+  ],
+  "Cheat Sheet": [
+   {
+    "t": "list",
+    "h": "Quick Facts",
+    "items": [
+     "JSON resource policy",
+     "Max 20 KB",
+     "Explicit deny wins",
+     "Principal is required"
+    ]
+   },
+   {
+    "t": "list",
+    "h": "Common Mistakes",
+    "items": [
+     "Principal * with Allow",
+     "Wrong ARN",
+     "Locking yourself out"
+    ]
+   },
+   {
+    "h": "Remember Trick",
+    "p": "<b>Principal + Action + Resource</b>"
+   }
+  ]
+ }
+}
